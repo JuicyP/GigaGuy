@@ -1,0 +1,6 @@
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\IgnoreMe.dll
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\obj\PSM\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\obj\PSM\IgnoreMe.dll
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\obj\PSM\GigaGuyContent.csprojResolveAssemblyReference.cache
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\player.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\tile.xnb
