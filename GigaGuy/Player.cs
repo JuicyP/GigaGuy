@@ -13,6 +13,8 @@ namespace GigaGuy
         private Texture2D texture;
 
         public Vector2 Position { get; set; }
+        public Vector2 Velocity { get; set; }
+
         public Rectangle Hitbox
         {
             get
@@ -22,8 +24,7 @@ namespace GigaGuy
                     playerWidth, playerHeight);
             }
         }
-
-        private Vector2 velocity;
+      
         private Vector2 acceleration;
         private Vector2 friction;
 
@@ -37,7 +38,7 @@ namespace GigaGuy
         {
             Position = new Vector2(0, 0);
             acceleration = new Vector2(0, 0);
-            velocity = new Vector2(0, 0);            
+            Velocity = new Vector2(0, 0);            
             friction = new Vector2(frictionFactor, frictionFactor);
         }
 
@@ -58,9 +59,9 @@ namespace GigaGuy
 
         private void Move()
         {
-            Position += velocity;
-            velocity += acceleration;
-            velocity /= friction;
+            Position += Velocity;
+            Velocity += acceleration;
+            Velocity /= friction;
             acceleration = Vector2.Zero;
         }
 

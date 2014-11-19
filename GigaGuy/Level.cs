@@ -85,6 +85,7 @@ namespace GigaGuy
                     if (tile.Hitbox.Intersects(Player.Hitbox))
                     {
                         Player.Position = new Vector2(tile.Hitbox.Right, Player.Position.Y);
+                        Player.Velocity = new Vector2(0, Player.Velocity.Y);
                     }
                 }
             }
@@ -99,6 +100,7 @@ namespace GigaGuy
                     if (tile.Hitbox.Intersects(Player.Hitbox))
                     {
                         Player.Position = new Vector2(tile.Hitbox.Left - Player.Hitbox.Width, Player.Position.Y);
+                        Player.Velocity = new Vector2(0, Player.Velocity.Y);
                     }
                 }
             }
@@ -114,6 +116,7 @@ namespace GigaGuy
                     if (tile.Hitbox.Intersects(Player.Hitbox))
                     {
                         Player.Position = new Vector2(tile.Hitbox.Right, Player.Position.Y);
+                        Player.Velocity = new Vector2(0, Player.Velocity.Y);
                     }
                 }
             }
@@ -128,6 +131,7 @@ namespace GigaGuy
                     if (tile.Hitbox.Intersects(Player.Hitbox))
                     {
                         Player.Position = new Vector2(tile.Hitbox.Left - Player.Hitbox.Width, Player.Position.Y);
+                        Player.Velocity = new Vector2(0, Player.Velocity.Y);
                     }
                 }
             }           
@@ -143,6 +147,7 @@ namespace GigaGuy
                     if (tile.Hitbox.Intersects(Player.Hitbox))
                     {
                         Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
+                        Player.Velocity = new Vector2(Player.Velocity.X, 0);
                     }
                 }
             }
@@ -157,6 +162,7 @@ namespace GigaGuy
                     if (tile.Hitbox.Intersects(Player.Hitbox))
                     {
                         Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
+                        Player.Velocity = new Vector2(Player.Velocity.X, 0);
                     }
                 }
             }
@@ -172,6 +178,7 @@ namespace GigaGuy
                     if (tile.Hitbox.Intersects(Player.Hitbox))
                     {
                         Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
+                        Player.Velocity = new Vector2(Player.Velocity.X, 0);
                     }
                 }
             }
@@ -186,6 +193,7 @@ namespace GigaGuy
                     if (tile.Hitbox.Intersects(Player.Hitbox))
                     {
                         Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
+                        Player.Velocity = new Vector2(Player.Velocity.X, 0);
                     }
                 }
             }
