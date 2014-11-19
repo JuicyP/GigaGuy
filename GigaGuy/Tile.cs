@@ -37,7 +37,7 @@ namespace GigaGuy
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Hitbox, Color.White);
+            spriteBatch.Draw(Texture, Position, Color.White);
         }
     }
 }

@@ -19,11 +19,9 @@ namespace GigaGuy
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        KeyboardState keyboardState;
+        private Level level;
 
-        Player player;
-
-        Level level;
+        private KeyboardState keyboardState;
 
         public Game1()
             : base()
@@ -57,9 +55,7 @@ namespace GigaGuy
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            player = new Player();
-            player.LoadContent(Content);
-            level = new Level();
+            level = new Level("Level.txt");
             level.LoadContent(Content);
             
         }
@@ -88,7 +84,7 @@ namespace GigaGuy
 
             HandleInput();
 
-            player.Update(gameTime);
+            level.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -107,8 +103,6 @@ namespace GigaGuy
 
             level.Draw(spriteBatch);
 
-            player.Draw(spriteBatch);
-
             spriteBatch.End();
 
             base.Draw(gameTime);
@@ -117,16 +111,16 @@ namespace GigaGuy
         private void HandleInput()
         {
             if (keyboardState.IsKeyDown(Keys.D))
-                player.MoveRight();
+                level.Player.MoveRight();
 
             if (keyboardState.IsKeyDown(Keys.A))
-                player.MoveLeft();
+                level.Player.MoveLeft();
 
             if (keyboardState.IsKeyDown(Keys.S))
-                player.MoveDown();
+                level.Player.MoveDown();
 
             if (keyboardState.IsKeyDown(Keys.W))
-                player.MoveUp();
+                level.Player.MoveUp();
         }
     }
 }

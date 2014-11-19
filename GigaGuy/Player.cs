@@ -11,11 +11,24 @@ namespace GigaGuy
     class Player
     {
         private Texture2D texture;
+
         public Vector2 Position { get; set; }
-        public Vector2 Acceleration { get; set; }
+        public Rectangle Hitbox
+        {
+            get
+            {
+                return new Rectangle(
+                    (int)Position.X, (int)Position.Y,
+                    playerWidth, playerHeight);
+            }
+        }
 
         private Vector2 velocity;
+        private Vector2 acceleration;
         private Vector2 friction;
+
+        private int playerWidth = 32;
+        private int playerHeight = 64;
 
         private float accelerationFactor = 0.75f;
         private float frictionFactor = 1.05f;
@@ -23,7 +36,7 @@ namespace GigaGuy
         public Player()
         {
             Position = new Vector2(0, 0);
-            Acceleration = new Vector2(0, 0);
+            acceleration = new Vector2(0, 0);
             velocity = new Vector2(0, 0);            
             friction = new Vector2(frictionFactor, frictionFactor);
         }
@@ -46,14 +59,14 @@ namespace GigaGuy
         private void Move()
         {
             Position += velocity;
-            velocity += Acceleration;
+            velocity += acceleration;
             velocity /= friction;
-            Acceleration = Vector2.Zero;
+            acceleration = Vector2.Zero;
         }
 
-        public void MoveRight() { Acceleration += Vector2.UnitX * accelerationFactor; }
-        public void MoveLeft() { Acceleration -= Vector2.UnitX * accelerationFactor; }
-        public void MoveDown() { Acceleration += Vector2.UnitY * accelerationFactor; }
-        public void MoveUp() { Acceleration -= Vector2.UnitY * accelerationFactor; }
+        public void MoveRight() { acceleration += Vector2.UnitX * accelerationFactor; }
+        public void MoveLeft() { acceleration -= Vector2.UnitX * accelerationFactor; }
+        public void MoveDown() { acceleration += Vector2.UnitY * accelerationFactor; }
+        public void MoveUp() { acceleration -= Vector2.UnitY * accelerationFactor; }
     }
 }
