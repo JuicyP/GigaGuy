@@ -26,3 +26,4 @@ C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\obj\x86\Debug\GigaGuy.exe
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\obj\x86\Debug\GigaGuy.pdb
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\player.xnb
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\tile.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\playerDuck.xnb

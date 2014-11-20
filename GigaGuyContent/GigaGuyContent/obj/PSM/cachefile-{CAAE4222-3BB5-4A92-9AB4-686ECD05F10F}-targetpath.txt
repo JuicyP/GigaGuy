@@ -1,2 +1,3 @@
 Content\player.xnb
 Content\tile.xnb
+Content\playerDuck.xnb

@@ -41,9 +41,9 @@ namespace GigaGuy
                 {
                     if (row[j].Equals('1'))
                     {
-                        Tile tile = new Tile(gridCellWidth, gridCellHeight);
+                        RectangleF hitbox = new RectangleF(j * gridCellWidth, i * gridCellHeight, gridCellWidth, gridCellHeight);
+                        Tile tile = new Tile(hitbox);
                         tile.Texture = tileTexture;
-                        tile.Position = new Vector2(j * gridCellWidth, i * gridCellHeight);
                         tileMap.Add(tile);
                     }
                 }
@@ -54,11 +54,8 @@ namespace GigaGuy
 
         public void Update(GameTime gameTime)
         {
-
             Player.Update(gameTime);
-
-            CheckForCollisions();
-
+            HandleCollisions();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -67,136 +64,115 @@ namespace GigaGuy
             {
                 tile.Draw(spriteBatch);
             }
-
             Player.Draw(spriteBatch);
         }
 
-        private void CheckForCollisions() // TODO: Refactoring
+        private void HandleCollisions()
         {
-            
-            // Top-left centerline
-            int gridColumn = (Player.Hitbox.Left / gridCellWidth) * gridCellWidth;
-            int gridRow = ((Player.Hitbox.Top + Player.Hitbox.Height / 4) / gridCellHeight) * gridCellHeight;
 
-            foreach (Tile tile in tileMap)
+            // Top-left centerline
+            float tileX = (float)Math.Floor(Player.Hitbox.Left / gridCellWidth) * gridCellWidth; // Consider changing to int
+            float tileY = (float)Math.Floor((Player.Hitbox.Top + Player.Hitbox.Height / 4) / gridCellHeight) * gridCellHeight;
+            Tile tile = CheckForCollision(tileX, tileY);
+
+            if (tile != null)
             {
-                if (tile.Position.X == gridColumn && tile.Position.Y == gridRow)
-                {
-                    if (tile.Hitbox.Intersects(Player.Hitbox))
-                    {
-                        Player.Position = new Vector2(tile.Hitbox.Right, Player.Position.Y);
-                        Player.Velocity = new Vector2(0, Player.Velocity.Y);
-                    }
-                }
+                Player.Position = new Vector2(tile.Hitbox.Right, Player.Position.Y);
+                Player.Velocity = new Vector2(0, Player.Velocity.Y);
             }
 
             // Top-right centerline
-            gridColumn = (Player.Hitbox.Right / gridCellWidth) * gridCellWidth;
+            tileX = (float)Math.Floor(Player.Hitbox.Right / gridCellWidth) * gridCellWidth;
+            tile = CheckForCollision(tileX, tileY);
 
-            foreach (Tile tile in tileMap)
+            if (tile != null)
             {
-                if (tile.Position.X == gridColumn && tile.Position.Y == gridRow)
-                {
-                    if (tile.Hitbox.Intersects(Player.Hitbox))
-                    {
-                        Player.Position = new Vector2(tile.Hitbox.Left - Player.Hitbox.Width, Player.Position.Y);
-                        Player.Velocity = new Vector2(0, Player.Velocity.Y);
-                    }
-                }
+                Player.Position = new Vector2(tile.Hitbox.Left - Player.Hitbox.Width, Player.Position.Y);
+                Player.Velocity = new Vector2(0, Player.Velocity.Y);
             }
 
-            // Botton-left centerline
-            gridColumn = (Player.Hitbox.Left / gridCellWidth) * gridCellWidth;
-            gridRow = ((Player.Hitbox.Top + 3 * Player.Hitbox.Height / 4) / gridCellHeight) * gridCellHeight;
+            // Bottom-left centerline
+            tileX = (float)Math.Floor(Player.Hitbox.Left / gridCellWidth) * gridCellWidth;
+            tileY = (float)Math.Floor((Player.Hitbox.Top + - 5 + 3 * Player.Hitbox.Height / 4) / gridCellHeight) * gridCellHeight;
+            tile = CheckForCollision(tileX, tileY);
 
-            foreach (Tile tile in tileMap)
+            if (tile != null)
             {
-                if (tile.Position.X == gridColumn && tile.Position.Y == gridRow)
-                {
-                    if (tile.Hitbox.Intersects(Player.Hitbox))
-                    {
-                        Player.Position = new Vector2(tile.Hitbox.Right, Player.Position.Y);
-                        Player.Velocity = new Vector2(0, Player.Velocity.Y);
-                    }
-                }
+                Player.Position = new Vector2(tile.Hitbox.Right, Player.Position.Y);
+                Player.Velocity = new Vector2(0, Player.Velocity.Y);
             }
 
-            // Botton-right centerline
-            gridColumn = (Player.Hitbox.Right / gridCellWidth) * gridCellWidth;
+            // Bottom-right centerline
+            tileX = (float)Math.Floor(Player.Hitbox.Right / gridCellWidth) * gridCellWidth;
+            tile = CheckForCollision(tileX, tileY);
 
-            foreach (Tile tile in tileMap)
+            if (tile != null)
             {
-                if (tile.Position.X == gridColumn && tile.Position.Y == gridRow)
-                {
-                    if (tile.Hitbox.Intersects(Player.Hitbox))
-                    {
-                        Player.Position = new Vector2(tile.Hitbox.Left - Player.Hitbox.Width, Player.Position.Y);
-                        Player.Velocity = new Vector2(0, Player.Velocity.Y);
-                    }
-                }
-            }           
+                Player.Position = new Vector2(tile.Hitbox.Left - Player.Hitbox.Width, Player.Position.Y);
+                Player.Velocity = new Vector2(0, Player.Velocity.Y);
+            }
 
             // Top-left corner
-            gridColumn = (Player.Hitbox.Left / gridCellWidth) * gridCellWidth;
-            gridRow = (Player.Hitbox.Top / gridCellHeight) * gridCellHeight;
+            int cornerOffSet = 0;
+            tileX = (float)Math.Floor((Player.Hitbox.Left + cornerOffSet) / gridCellWidth) * gridCellWidth;
+            tileY = (float)Math.Floor(Player.Hitbox.Top / gridCellHeight) * gridCellHeight;
+            tile = CheckForCollision(tileX, tileY);
 
-            foreach (Tile tile in tileMap)
+            if (tile != null)
             {
-                if (tile.Position.X == gridColumn && tile.Position.Y == gridRow)
-                {
-                    if (tile.Hitbox.Intersects(Player.Hitbox))
-                    {
-                        Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
-                        Player.Velocity = new Vector2(Player.Velocity.X, 0);
-                    }
-                }
+                Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
+                Player.Velocity = new Vector2(Player.Velocity.X, 0);
             }
 
             // Top-right corner
-            gridColumn = (Player.Hitbox.Right / gridCellWidth) * gridCellWidth;
+            tileX = (float)Math.Floor((Player.Hitbox.Right - cornerOffSet) / gridCellWidth) * gridCellWidth;
+            tile = CheckForCollision(tileX, tileY);
 
-            foreach (Tile tile in tileMap)
+            if (tile != null)
             {
-                if (tile.Position.X == gridColumn && tile.Position.Y == gridRow)
-                {
-                    if (tile.Hitbox.Intersects(Player.Hitbox))
-                    {
-                        Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
-                        Player.Velocity = new Vector2(Player.Velocity.X, 0);
-                    }
-                }
+                Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
+                Player.Velocity = new Vector2(Player.Velocity.X, 0);
             }
 
             // Bottom-left corner
-            gridColumn = (Player.Hitbox.Left / gridCellWidth) * gridCellWidth;
-            gridRow = (Player.Hitbox.Bottom / gridCellHeight) * gridCellHeight;
+            tileX = (float)Math.Floor((Player.Hitbox.Left + cornerOffSet) / gridCellWidth) * gridCellWidth;
+            tileY = (float)Math.Floor(Player.Hitbox.Bottom / gridCellHeight) * gridCellHeight;
+            tile = CheckForCollision(tileX, tileY);
+            bool collision = false;
 
-            foreach (Tile tile in tileMap)
+            if (tile != null)
             {
-                if (tile.Position.X == gridColumn && tile.Position.Y == gridRow)
-                {
-                    if (tile.Hitbox.Intersects(Player.Hitbox))
-                    {
-                        Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
-                        Player.Velocity = new Vector2(Player.Velocity.X, 0);
-                    }
-                }
+                collision = true;
+                Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
+                Player.Velocity = new Vector2(Player.Velocity.X, 0);
             }
 
             // Bottom-right corner
-            gridColumn = (Player.Hitbox.Right / gridCellWidth) * gridCellWidth;
+            tileX = (float)Math.Floor((Player.Hitbox.Right - cornerOffSet) / gridCellWidth) * gridCellWidth;
+            tile = CheckForCollision(tileX, tileY);
 
+            if (tile != null)
+            {
+                collision = true;
+                Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
+                Player.Velocity = new Vector2(Player.Velocity.X, 0);
+            }
+            Player.IsOnGround = collision;
+        }
+
+        private Tile CheckForCollision(float tileX, float tileY)
+        {
             foreach (Tile tile in tileMap)
             {
-                if (tile.Position.X == gridColumn && tile.Position.Y == gridRow)
+                if (tile.Hitbox.X == tileX && tile.Hitbox.Y == tileY)
                 {
                     if (tile.Hitbox.Intersects(Player.Hitbox))
                     {
-                        Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
-                        Player.Velocity = new Vector2(Player.Velocity.X, 0);
+                        return tile;
                     }
                 }
             }
+            return null;
         }
     }
 }

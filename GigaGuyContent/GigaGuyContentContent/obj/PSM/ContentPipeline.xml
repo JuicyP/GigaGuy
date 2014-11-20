@@ -19,6 +19,15 @@
       <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\tile.xnb</Output>
       <Time>2014-11-17T10:39:24.0897285+02:00</Time>
     </Item>
+    <Item>
+      <Source>playerDuck.png</Source>
+      <Name>playerDuck</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\playerDuck.xnb</Output>
+      <Time>2014-11-20T05:34:15.1644007+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

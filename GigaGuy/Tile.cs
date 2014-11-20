@@ -11,24 +11,10 @@ namespace GigaGuy
     class Tile
     {
         public Texture2D Texture { get; set; }
-        public Vector2 Position { get; set; }
-        public Rectangle Hitbox
+        public RectangleF Hitbox { get; set; }
+        public Tile(RectangleF hitbox)
         {
-            get
-            {
-                return new Rectangle(
-                    (int)Position.X, (int)Position.Y,
-                    tileWidth, tileHeight);
-            }
-        }
-
-        private int tileWidth;
-        private int tileHeight;
-
-        public Tile(int tileWidth, int tileHeight)
-        {
-            this.tileWidth = tileWidth;
-            this.tileHeight = tileHeight;
+            Hitbox = hitbox;
         }
 
         public void Update()
@@ -37,7 +23,7 @@ namespace GigaGuy
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, Position, Color.White);
+            spriteBatch.Draw(Texture, new Vector2(Hitbox.X, Hitbox.Y), Color.White);
         }
     }
 }

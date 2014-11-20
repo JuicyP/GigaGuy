@@ -4,3 +4,4 @@ C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\obj\PSM\Ign
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\obj\PSM\GigaGuyContent.csprojResolveAssemblyReference.cache
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\player.xnb
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\tile.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\playerDuck.xnb

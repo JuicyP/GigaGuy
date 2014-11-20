@@ -21,8 +21,6 @@ namespace GigaGuy
 
         private Level level;
 
-        private KeyboardState keyboardState;
-
         public Game1()
             : base()
         {
@@ -80,10 +78,6 @@ namespace GigaGuy
                 Exit();
 
             // TODO: Add your update logic here
-            keyboardState = Keyboard.GetState();
-
-            HandleInput();
-
             level.Update(gameTime);
 
             base.Update(gameTime);
@@ -106,21 +100,6 @@ namespace GigaGuy
             spriteBatch.End();
 
             base.Draw(gameTime);
-        }
-
-        private void HandleInput()
-        {
-            if (keyboardState.IsKeyDown(Keys.D))
-                level.Player.MoveRight();
-
-            if (keyboardState.IsKeyDown(Keys.A))
-                level.Player.MoveLeft();
-
-            if (keyboardState.IsKeyDown(Keys.S))
-                level.Player.MoveDown();
-
-            if (keyboardState.IsKeyDown(Keys.W))
-                level.Player.MoveUp();
         }
     }
 }
