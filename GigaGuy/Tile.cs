@@ -21,9 +21,9 @@ namespace GigaGuy
         {
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, Vector2 offSet)
         {
-            spriteBatch.Draw(Texture, new Vector2(Hitbox.X, Hitbox.Y), Color.White);
+            spriteBatch.Draw(Texture, new Vector2(Hitbox.X, Hitbox.Y) + offSet, Color.White);
         }
     }
 }

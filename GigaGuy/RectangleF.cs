@@ -17,7 +17,7 @@ namespace GigaGuy
         public float Bottom { get { return Y + Height; } }
         public float Top { get { return Y; } }
 
-        public RectangleF(float x, float y, int width, int height)
+        public RectangleF(float x, float y, float width, float height)
         {
             X = x;
             Y = y;

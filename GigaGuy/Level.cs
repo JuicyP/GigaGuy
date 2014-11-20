@@ -11,10 +11,11 @@ namespace GigaGuy
 {
     class Level
     {
-        public Player Player { get; set; }
+        public Player Player { get; private set; }
 
         private Texture2D tileTexture;
         private List<Tile> tileMap;
+        private Camera camera;
 
         private const int gridCellWidth = 32;
         private const int gridCellHeight = 32;
@@ -50,6 +51,7 @@ namespace GigaGuy
             }
             Player = new Player();
             Player.LoadContent(Content);
+            camera = new Camera();
         }
 
         public void Update(GameTime gameTime)
@@ -60,16 +62,18 @@ namespace GigaGuy
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            Vector2 offSet = camera.CalculateOffSet(Player);
             foreach (Tile tile in tileMap)
             {
-                tile.Draw(spriteBatch);
+                tile.Draw(spriteBatch, offSet);
             }
-            Player.Draw(spriteBatch);
+            Player.Draw(spriteBatch, offSet);
         }
 
         private void HandleCollisions()
         {
-
+            // Centerlines
+            bool collision = false;
             // Top-left centerline
             float tileX = (float)Math.Floor(Player.Hitbox.Left / gridCellWidth) * gridCellWidth; // Consider changing to int
             float tileY = (float)Math.Floor((Player.Hitbox.Top + Player.Hitbox.Height / 4) / gridCellHeight) * gridCellHeight;
@@ -79,6 +83,8 @@ namespace GigaGuy
             {
                 Player.Position = new Vector2(tile.Hitbox.Right, Player.Position.Y);
                 Player.Velocity = new Vector2(0, Player.Velocity.Y);
+                collision = true;
+                Player.IsOnRightWall = false;
             }
 
             // Top-right centerline
@@ -89,6 +95,8 @@ namespace GigaGuy
             {
                 Player.Position = new Vector2(tile.Hitbox.Left - Player.Hitbox.Width, Player.Position.Y);
                 Player.Velocity = new Vector2(0, Player.Velocity.Y);
+                collision = true;
+                Player.IsOnRightWall = true;
             }
 
             // Bottom-left centerline
@@ -100,6 +108,8 @@ namespace GigaGuy
             {
                 Player.Position = new Vector2(tile.Hitbox.Right, Player.Position.Y);
                 Player.Velocity = new Vector2(0, Player.Velocity.Y);
+                collision = true;
+                Player.IsOnRightWall = false;
             }
 
             // Bottom-right centerline
@@ -110,10 +120,16 @@ namespace GigaGuy
             {
                 Player.Position = new Vector2(tile.Hitbox.Left - Player.Hitbox.Width, Player.Position.Y);
                 Player.Velocity = new Vector2(0, Player.Velocity.Y);
+                collision = true;
+                Player.IsOnRightWall = true;
             }
 
+            Player.IsOnWall = collision;
+
+            //Corners
+            collision = false;
             // Top-left corner
-            int cornerOffSet = 0;
+            int cornerOffSet = 0; // For tweaking purposes
             tileX = (float)Math.Floor((Player.Hitbox.Left + cornerOffSet) / gridCellWidth) * gridCellWidth;
             tileY = (float)Math.Floor(Player.Hitbox.Top / gridCellHeight) * gridCellHeight;
             tile = CheckForCollision(tileX, tileY);
@@ -133,18 +149,17 @@ namespace GigaGuy
                 Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
                 Player.Velocity = new Vector2(Player.Velocity.X, 0);
             }
-
+            
             // Bottom-left corner
             tileX = (float)Math.Floor((Player.Hitbox.Left + cornerOffSet) / gridCellWidth) * gridCellWidth;
             tileY = (float)Math.Floor(Player.Hitbox.Bottom / gridCellHeight) * gridCellHeight;
             tile = CheckForCollision(tileX, tileY);
-            bool collision = false;
-
+            
             if (tile != null)
-            {
-                collision = true;
+            {             
                 Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
                 Player.Velocity = new Vector2(Player.Velocity.X, 0);
+                collision = true;
             }
 
             // Bottom-right corner
@@ -153,9 +168,9 @@ namespace GigaGuy
 
             if (tile != null)
             {
-                collision = true;
                 Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
                 Player.Velocity = new Vector2(Player.Velocity.X, 0);
+                collision = true;
             }
             Player.IsOnGround = collision;
         }
