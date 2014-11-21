@@ -138,6 +138,7 @@ namespace GigaGuy
             {
                 Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
                 Player.Velocity = new Vector2(Player.Velocity.X, 0);
+                Player.IsJumping = false;
             }
 
             // Top-right corner
@@ -148,6 +149,7 @@ namespace GigaGuy
             {
                 Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
                 Player.Velocity = new Vector2(Player.Velocity.X, 0);
+                Player.IsJumping = false;
             }
             
             // Bottom-left corner
@@ -159,6 +161,7 @@ namespace GigaGuy
             {             
                 Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
                 Player.Velocity = new Vector2(Player.Velocity.X, 0);
+                Player.IsJumping = false;
                 collision = true;
             }
 
@@ -170,6 +173,7 @@ namespace GigaGuy
             {
                 Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
                 Player.Velocity = new Vector2(Player.Velocity.X, 0);
+                Player.IsJumping = false;
                 collision = true;
             }
             Player.IsOnGround = collision;

@@ -30,37 +30,40 @@ namespace GigaGuy
                     playerWidth, playerHeight);
             }
         }
-      
-        private Vector2 acceleration;
 
         private int playerWidth = 32;
         private int playerHeight = 64;
 
-        private float speed = 90f;
-        private float terminalSpeed = 45f;
-        private float slideTimer = 0.5f;
+        private float speed = 1.5f;
+        private float jumpSpeed = 10f;
+        private float terminalSpeed;
+        private const float terminalSpeedDefault = 0.75f;
 
-        private float xMaxSpeed;
-        private const float xMaxSpeedDefault = 600f;
-        private float yMaxSpeed;
-        private const float yMaxSpeedDefault = 1050f;
+        private float slideTimer;
+        private float slideTimerDefault = 0.1f;
+        private float jumpTimer;
+        private float jumpTimerDefault = 0.4f;
 
-        private bool notMoving;
+        private const float xMaxSpeed = 10f;
+        private const float yMaxSpeed = 17.5f;
+
+        private bool isMoving;
         public bool IsDucking { get; private set; }
         public bool IsOnGround { get; set; }
 
         public bool IsOnWall { get; set; }
         public bool IsOnRightWall { get; set; }
+        public bool IsJumping { get; set; }
         private bool wasOnWall;
-        private bool isJumping;
+        
 
         public Player()
         {
             Position = new Vector2(0, 0);
-            acceleration = new Vector2(0, 0);
             Velocity = new Vector2(0, 0);
-            xMaxSpeed = xMaxSpeedDefault;
-            yMaxSpeed = yMaxSpeedDefault;
+            terminalSpeed = terminalSpeedDefault;
+            slideTimer = slideTimerDefault;
+            jumpTimer = jumpTimerDefault;
         }
 
         public void LoadContent(ContentManager Content)
@@ -72,10 +75,12 @@ namespace GigaGuy
 
         public void Update(GameTime gameTime)
         {
-            HandleInput();
-            HandleDucking();           
+            keyboardState = Keyboard.GetState();
+            HandleMovement();
+            HandleDucking();
+            HandleJumping(gameTime);
+            HandleWallSliding(gameTime);
             HandlePhysics(gameTime);
-
             lastState = keyboardState;
         }
 
@@ -86,56 +91,85 @@ namespace GigaGuy
 
         private void HandlePhysics(GameTime gameTime)
         {
-            HandleWallSliding(gameTime);
-
-            if (notMoving)
+            if (!isMoving)
             {
                 if (Velocity.X > 0)
-                    acceleration -= Vector2.UnitX * speed;
+                    Velocity -= Vector2.UnitX * speed;
                 else if (Velocity.X < 0)
-                    acceleration += Vector2.UnitX * speed;
+                    Velocity += Vector2.UnitX * speed;
                 if (Math.Abs(Velocity.X) < speed)
                     Velocity = new Vector2(0, Velocity.Y);
             }
-            Velocity += acceleration;
-            Velocity = new Vector2(
-                MathHelper.Clamp(Velocity.X, -xMaxSpeed, xMaxSpeed),
-                MathHelper.Clamp(Velocity.Y, -yMaxSpeed, yMaxSpeed));
-            Position += Velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            acceleration = new Vector2(0, terminalSpeed);
+            float xClamp = MathHelper.Clamp(Velocity.X, -xMaxSpeed, xMaxSpeed);
+            float yClamp = MathHelper.Clamp(Velocity.Y + terminalSpeed, -yMaxSpeed, yMaxSpeed);
+            Velocity = new Vector2(xClamp, yClamp);
+            Position += Velocity;
         }
 
-        private void HandleInput()
+        private void HandleMovement()
         {
-            keyboardState = Keyboard.GetState();
-            notMoving = true;
+            isMoving = false;
 
             if (keyboardState.IsKeyDown(Keys.D))
             {
-                acceleration += Vector2.UnitX * speed;
-                notMoving = false;
+                Velocity += Vector2.UnitX * speed;
+                isMoving = !isMoving;
             }
 
             if (keyboardState.IsKeyDown(Keys.A))
             {
-                acceleration -= Vector2.UnitX * speed;
-                notMoving = false;
+                Velocity -= Vector2.UnitX * speed;
+                isMoving = !isMoving;
             }
+        }
 
+        private void HandleJumping(GameTime gameTime)
+        {
+            if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyUp(Keys.W))
+            {
+                if (IsOnGround)
+                {
+                    IsJumping = true;
+                    jumpTimer = jumpTimerDefault;
+                    Velocity = new Vector2(Velocity.X, -jumpSpeed);                  
+                }
+                else if (IsOnWall)
+                {
+                    IsJumping = true;
+                    jumpTimer = jumpTimerDefault;
+
+                    if (IsOnRightWall)
+                        Velocity = new Vector2(-jumpSpeed, -jumpSpeed);
+                    else
+                        Velocity = new Vector2(jumpSpeed, -jumpSpeed);
+                }
+            }                
+            else if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyDown(Keys.W) && jumpTimer > 0 && IsJumping)
+            {
+                if (jumpTimer < 0.1f)
+                    Velocity = new Vector2(Velocity.X, -jumpSpeed / 2);
+                else
+                    Velocity = new Vector2(Velocity.X, -jumpSpeed);
+                jumpTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else if (((keyboardState.IsKeyUp(Keys.W) && lastState.IsKeyDown(Keys.W)) || jumpTimer < 0) && IsJumping)
+            {
+                Velocity = new Vector2(Velocity.X, 0);
+                jumpTimer = jumpTimerDefault;
+                IsJumping = false;
+            }
+        }
+
+        private void HandleDucking()
+        {
             if (keyboardState.IsKeyDown(Keys.S))
                 IsDucking = true;
             else
                 IsDucking = false;
 
-            if (keyboardState.IsKeyDown(Keys.W))
-                Jump();
-        }
-
-        private void HandleDucking()
-        {
             if (IsDucking)
             {
-                xMaxSpeed = xMaxSpeedDefault / 2;
+                Velocity = new Vector2(Velocity.X / 2, Velocity.Y);
                 renderTexture = duckTexture;
                 playerHeight = 32;
 
@@ -146,7 +180,6 @@ namespace GigaGuy
             {
                 if (lastState.IsKeyDown(Keys.S) && keyboardState.IsKeyUp(Keys.S))
                 {
-                    xMaxSpeed = xMaxSpeedDefault;
                     Position = new Vector2(Position.X, Position.Y - 32);
                     renderTexture = idleTexture;
                     playerHeight = 64;
@@ -154,58 +187,24 @@ namespace GigaGuy
             }
         }
 
-        private void Jump()
-        {
-            if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyUp(Keys.W))
-            {
-                if (IsOnGround)
-                {
-                        Velocity = new Vector2(Velocity.X, -yMaxSpeed);
-                }
-                else if (IsOnWall)
-                {
-                    yMaxSpeed = yMaxSpeedDefault;
-
-                    if (IsOnRightWall)
-                        Velocity = new Vector2(-xMaxSpeed, -yMaxSpeed);
-                    else
-                        Velocity = new Vector2(xMaxSpeed, -yMaxSpeed);
-                }
-            }
-        }
-
         private void HandleWallSliding(GameTime gameTime)
         {
-            if (IsOnWall && !IsOnGround)
+            if (IsOnWall && !IsOnGround && !IsJumping)
             {
-                yMaxSpeed = yMaxSpeedDefault / 4;
-                StickToWall(gameTime);
-
-                if (IsOnRightWall)
-                    Velocity = new Vector2(Velocity.X, Velocity.Y);
+                if ((slideTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds) > 0)
+                {
+                    terminalSpeed = 0;
+                    Velocity = new Vector2(Velocity.X, 0);
+                }
                 else
-                    Velocity = new Vector2(Velocity.X, Velocity.Y);
+                    terminalSpeed = terminalSpeedDefault / 6;
             }
             else
             {
-                yMaxSpeed = yMaxSpeedDefault;
-                slideTimer = 1f;
+                terminalSpeed = terminalSpeedDefault;
+                slideTimer = slideTimerDefault;
             }
-
             wasOnWall = IsOnWall;
-        }
-
-        // Refactor into OnWallHit, call from collision code.
-        // Right now, wall sliding is dependent on continuous collision with the walls. Make it not so.
-        private void StickToWall(GameTime gameTime) 
-        {            
-            if ((slideTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds) > 0)
-            {
-                yMaxSpeed = 0;
-                Velocity = new Vector2(Velocity.X, yMaxSpeed);
-            }
-            else
-                yMaxSpeed = yMaxSpeedDefault / 4;
         }
     }
 }
