@@ -55,7 +55,7 @@ namespace GigaGuy
         }
 
         public void Update(GameTime gameTime)
-        {
+        {      
             Player.Update(gameTime);
             HandleCollisions();
         }
@@ -70,128 +70,136 @@ namespace GigaGuy
             Player.Draw(spriteBatch, offSet);
         }
 
+        /// <summary>
+        /// Collision in GigaGuy(WorkingTitle) works by having 8 points around the player character:
+        /// Four points on the sides and around the center of the character and one around each corner.
+        /// If any of the points enter a cell in the tilemap occupied by a tile a corresponding action depending on which point entered the cell will be performed.
+        /// The points also have a hierarchy, with the center points being checked before the corner points.
+        /// NOTE: Why use an 8-point system over a 4-point? Because it allows for a much wider variety of shapes and sizes to be used as character hitboxes.
+        /// It's also a much better idea to use a +4-point system if you want to use characters whose size exceeds the size of a single cell.
+        /// </summary>
         private void HandleCollisions()
         {
-            // Centerlines
-            bool collision = false;
-            // Top-left centerline
-            float tileX = (float)Math.Floor(Player.Hitbox.Left / gridCellWidth) * gridCellWidth; // Consider changing to int
-            float tileY = (float)Math.Floor((Player.Hitbox.Top + Player.Hitbox.Height / 4) / gridCellHeight) * gridCellHeight;
-            Tile tile = CheckForCollision(tileX, tileY);
-
-            if (tile != null)
+            // Centerpoints
+            if (!Player.IsDucking)
             {
-                Player.Position = new Vector2(tile.Hitbox.Right, Player.Position.Y);
-                Player.Velocity = new Vector2(0, Player.Velocity.Y);
-                collision = true;
-                Player.IsOnRightWall = false;
+                // Right-bottom center
+                CheckForCollision(true, true, true);
+                // Left-bottom center
+                CheckForCollision(false, true, true);
             }
-
-            // Top-right centerline
-            tileX = (float)Math.Floor(Player.Hitbox.Right / gridCellWidth) * gridCellWidth;
-            tile = CheckForCollision(tileX, tileY);
-
-            if (tile != null)
-            {
-                Player.Position = new Vector2(tile.Hitbox.Left - Player.Hitbox.Width, Player.Position.Y);
-                Player.Velocity = new Vector2(0, Player.Velocity.Y);
-                collision = true;
-                Player.IsOnRightWall = true;
-            }
-
-            // Bottom-left centerline
-            tileX = (float)Math.Floor(Player.Hitbox.Left / gridCellWidth) * gridCellWidth;
-            tileY = (float)Math.Floor((Player.Hitbox.Top + - 5 + 3 * Player.Hitbox.Height / 4) / gridCellHeight) * gridCellHeight;
-            tile = CheckForCollision(tileX, tileY);
-
-            if (tile != null)
-            {
-                Player.Position = new Vector2(tile.Hitbox.Right, Player.Position.Y);
-                Player.Velocity = new Vector2(0, Player.Velocity.Y);
-                collision = true;
-                Player.IsOnRightWall = false;
-            }
-
-            // Bottom-right centerline
-            tileX = (float)Math.Floor(Player.Hitbox.Right / gridCellWidth) * gridCellWidth;
-            tile = CheckForCollision(tileX, tileY);
-
-            if (tile != null)
-            {
-                Player.Position = new Vector2(tile.Hitbox.Left - Player.Hitbox.Width, Player.Position.Y);
-                Player.Velocity = new Vector2(0, Player.Velocity.Y);
-                collision = true;
-                Player.IsOnRightWall = true;
-            }
-
-            Player.IsOnWall = collision;
-
-            //Corners
-            collision = false;
-            // Top-left corner
-            int cornerOffSet = 0; // For tweaking purposes
-            tileX = (float)Math.Floor((Player.Hitbox.Left + cornerOffSet) / gridCellWidth) * gridCellWidth;
-            tileY = (float)Math.Floor(Player.Hitbox.Top / gridCellHeight) * gridCellHeight;
-            tile = CheckForCollision(tileX, tileY);
-
-            if (tile != null)
-            {
-                Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
-                Player.Velocity = new Vector2(Player.Velocity.X, 0);
-                Player.IsJumping = false;
-            }
-
-            // Top-right corner
-            tileX = (float)Math.Floor((Player.Hitbox.Right - cornerOffSet) / gridCellWidth) * gridCellWidth;
-            tile = CheckForCollision(tileX, tileY);
-
-            if (tile != null)
-            {
-                Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
-                Player.Velocity = new Vector2(Player.Velocity.X, 0);
-                Player.IsJumping = false;
-            }
-            
-            // Bottom-left corner
-            tileX = (float)Math.Floor((Player.Hitbox.Left + cornerOffSet) / gridCellWidth) * gridCellWidth;
-            tileY = (float)Math.Floor(Player.Hitbox.Bottom / gridCellHeight) * gridCellHeight;
-            tile = CheckForCollision(tileX, tileY);
-            
-            if (tile != null)
-            {             
-                Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
-                Player.Velocity = new Vector2(Player.Velocity.X, 0);
-                Player.IsJumping = false;
-                collision = true;
-            }
-
-            // Bottom-right corner
-            tileX = (float)Math.Floor((Player.Hitbox.Right - cornerOffSet) / gridCellWidth) * gridCellWidth;
-            tile = CheckForCollision(tileX, tileY);
-
-            if (tile != null)
-            {
-                Player.Position = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
-                Player.Velocity = new Vector2(Player.Velocity.X, 0);
-                Player.IsJumping = false;
-                collision = true;
-            }
-            Player.IsOnGround = collision;
+            // Right-top center
+            CheckForCollision(true, false, true);
+            // Left-top center
+            CheckForCollision(false, false, true);
+            // Corners
+            // Right-bottom corner
+            CheckForCollision(true, true, false);
+            // Left-bottom corner
+            CheckForCollision(false, true, false);
+            // Right-top corner
+            CheckForCollision(true, false, false);
+            // Left-top corner
+            CheckForCollision(false, false, false);
         }
 
-        private Tile CheckForCollision(float tileX, float tileY)
+        private void CheckForCollision(bool isRight, bool isBottom, bool isCenter)
         {
+            float cornerOffSet = 6;
+            float centerLineOffSet = 6;
+            float tileX;
+            float tileY;
+
+            if (isCenter)
+            {
+                if (isRight)
+                    tileX = FindGridCoordinate(Player.Hitbox.Right, true);
+                else
+                    tileX = FindGridCoordinate(Player.Hitbox.Left, true);
+                float playerHeightOffSet = Player.Hitbox.Height / 4;
+                if (Player.IsDucking)
+                {
+                    playerHeightOffSet = Player.Hitbox.Height / 2;
+                    centerLineOffSet = -6;
+                }
+                if (isBottom)
+                    tileY = FindGridCoordinate((Player.Hitbox.Bottom - playerHeightOffSet) - centerLineOffSet, false); // 3*x/4
+                else
+                    tileY = FindGridCoordinate((Player.Hitbox.Top + playerHeightOffSet) + centerLineOffSet, false); // x/4
+            }
+            else
+            {
+                if (isRight)
+                    tileX = FindGridCoordinate(Player.Hitbox.Right - cornerOffSet, true);
+                else
+                    tileX = FindGridCoordinate(Player.Hitbox.Left + cornerOffSet, true);
+
+                if (isBottom)
+                    tileY = FindGridCoordinate(Player.Hitbox.Bottom, false);
+                else
+                    tileY = FindGridCoordinate(Player.Hitbox.Top, false);
+            }
             foreach (Tile tile in tileMap)
             {
                 if (tile.Hitbox.X == tileX && tile.Hitbox.Y == tileY)
                 {
                     if (tile.Hitbox.Intersects(Player.Hitbox))
                     {
-                        return tile;
+                        OnCollision(tile, isRight, isBottom, isCenter);
                     }
                 }
             }
-            return null;
+        }
+
+        private float FindGridCoordinate(float coordinate, bool isX)
+        {
+            if (isX)
+                return (float)Math.Floor(coordinate / gridCellWidth) * gridCellWidth;
+            else
+                return (float)Math.Floor(coordinate / gridCellHeight) * gridCellHeight;
+        }
+
+        private void OnCollision(Tile tile, bool isRight, bool isBottom, bool isCenter)
+        {
+            Vector2 playerNewPosition;
+            Vector2 playerNewVelocity;
+
+            if (tile != null)
+            {
+                if (isCenter)
+                {
+                    Player.IsOnWall = true;
+                    if (isRight)
+                    {
+                        playerNewPosition = new Vector2(tile.Hitbox.Left - Player.Hitbox.Width, Player.Position.Y);
+                        playerNewVelocity = new Vector2(0, Player.Velocity.Y);
+                        Player.IsOnRightWall = true;
+                    }
+                    else
+                    {
+                        playerNewPosition = new Vector2(tile.Hitbox.Right, Player.Position.Y);
+                        playerNewVelocity = new Vector2(0, Player.Velocity.Y);
+                        Player.IsOnRightWall = false;
+                    }
+                }
+                else
+                {
+                    if (isBottom)
+                    {
+                        playerNewPosition = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
+                        playerNewVelocity = new Vector2(Player.Velocity.X, 0);
+                        Player.IsOnGround = true;
+                    }
+                    else
+                    {
+                        playerNewPosition = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
+                        playerNewVelocity = new Vector2(Player.Velocity.X, 0);
+                        Player.TerminateJump();
+                    }
+                }
+                Player.Position = playerNewPosition;
+                Player.Velocity = playerNewVelocity;
+            }
         }
     }
 }

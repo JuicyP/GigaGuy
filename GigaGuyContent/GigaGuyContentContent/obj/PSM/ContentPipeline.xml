@@ -8,7 +8,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\player.xnb</Output>
-      <Time>2014-11-17T10:39:24.0877284+02:00</Time>
+      <Time>2014-11-21T16:48:02.17818+02:00</Time>
     </Item>
     <Item>
       <Source>tile.png</Source>
@@ -26,7 +26,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\playerDuck.xnb</Output>
-      <Time>2014-11-20T05:34:15.1644007+02:00</Time>
+      <Time>2014-11-21T16:48:16.443996+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

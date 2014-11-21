@@ -40,29 +40,38 @@ namespace GigaGuy
         private const float terminalSpeedDefault = 0.75f;
 
         private float slideTimer;
-        private float slideTimerDefault = 0.1f;
+        private const float slideTimerDefault = 0.1f;
+        private float stickTimer;
+        private const float stickTimerDefault = 1f;
         private float jumpTimer;
-        private float jumpTimerDefault = 0.4f;
+        private const float jumpTimerDefault = 0.4f;
 
-        private const float xMaxSpeed = 10f;
-        private const float yMaxSpeed = 17.5f;
+        private float xMaxSpeed;
+        private const float xMaxSpeedDefault = 7.5f;
+        private float yMaxSpeed;
+        private const float yMaxSpeedDefault = 17.5f;
 
         private bool isMoving;
+        private bool isJumping;
+
         public bool IsDucking { get; private set; }
         public bool IsOnGround { get; set; }
 
         public bool IsOnWall { get; set; }
-        public bool IsOnRightWall { get; set; }
-        public bool IsJumping { get; set; }
+        public bool IsOnRightWall { get; set; }     
         private bool wasOnWall;
+        private bool letGoOfWall;
         
 
         public Player()
         {
             Position = new Vector2(0, 0);
             Velocity = new Vector2(0, 0);
+            xMaxSpeed = xMaxSpeedDefault;
+            yMaxSpeed = yMaxSpeedDefault;
             terminalSpeed = terminalSpeedDefault;
             slideTimer = slideTimerDefault;
+            stickTimer = stickTimerDefault;
             jumpTimer = jumpTimerDefault;
         }
 
@@ -81,6 +90,8 @@ namespace GigaGuy
             HandleJumping(gameTime);
             HandleWallSliding(gameTime);
             HandlePhysics(gameTime);
+            IsOnWall = false;
+            IsOnGround = false;
             lastState = keyboardState;
         }
 
@@ -91,13 +102,13 @@ namespace GigaGuy
 
         private void HandlePhysics(GameTime gameTime)
         {
-            if (!isMoving)
+            if (!isMoving && !letGoOfWall)
             {
                 if (Velocity.X > 0)
-                    Velocity -= Vector2.UnitX * speed;
+                    Velocity -= Vector2.UnitX * 0.5f * speed;
                 else if (Velocity.X < 0)
-                    Velocity += Vector2.UnitX * speed;
-                if (Math.Abs(Velocity.X) < speed)
+                    Velocity += Vector2.UnitX * 0.5f * speed;
+                if (Math.Abs(Velocity.X) < 0.5f * speed)
                     Velocity = new Vector2(0, Velocity.Y);
             }
             float xClamp = MathHelper.Clamp(Velocity.X, -xMaxSpeed, xMaxSpeed);
@@ -129,13 +140,13 @@ namespace GigaGuy
             {
                 if (IsOnGround)
                 {
-                    IsJumping = true;
+                    isJumping = true;
                     jumpTimer = jumpTimerDefault;
                     Velocity = new Vector2(Velocity.X, -jumpSpeed);                  
                 }
                 else if (IsOnWall)
                 {
-                    IsJumping = true;
+                    isJumping = true;
                     jumpTimer = jumpTimerDefault;
 
                     if (IsOnRightWall)
@@ -144,7 +155,7 @@ namespace GigaGuy
                         Velocity = new Vector2(jumpSpeed, -jumpSpeed);
                 }
             }                
-            else if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyDown(Keys.W) && jumpTimer > 0 && IsJumping)
+            else if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyDown(Keys.W) && jumpTimer > 0 && isJumping)
             {
                 if (jumpTimer < 0.1f)
                     Velocity = new Vector2(Velocity.X, -jumpSpeed / 2);
@@ -152,11 +163,11 @@ namespace GigaGuy
                     Velocity = new Vector2(Velocity.X, -jumpSpeed);
                 jumpTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
-            else if (((keyboardState.IsKeyUp(Keys.W) && lastState.IsKeyDown(Keys.W)) || jumpTimer < 0) && IsJumping)
+            else if (((keyboardState.IsKeyUp(Keys.W) && lastState.IsKeyDown(Keys.W)) || jumpTimer < 0) && isJumping)
             {
                 Velocity = new Vector2(Velocity.X, 0);
                 jumpTimer = jumpTimerDefault;
-                IsJumping = false;
+                TerminateJump();
             }
         }
 
@@ -169,7 +180,7 @@ namespace GigaGuy
 
             if (IsDucking)
             {
-                Velocity = new Vector2(Velocity.X / 2, Velocity.Y);
+                Velocity = new Vector2(Velocity.X / 1.5f, Velocity.Y);
                 renderTexture = duckTexture;
                 playerHeight = 32;
 
@@ -189,7 +200,16 @@ namespace GigaGuy
 
         private void HandleWallSliding(GameTime gameTime)
         {
-            if (IsOnWall && !IsOnGround && !IsJumping)
+            if (letGoOfWall && !isJumping)
+            {
+                if ((stickTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds) > 0)
+                {
+                    StickToWall();
+                }
+                else
+                    letGoOfWall = false;
+            }
+            else if (IsOnWall && !IsOnGround && !isJumping)
             {
                 if ((slideTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds) > 0)
                 {
@@ -198,13 +218,34 @@ namespace GigaGuy
                 }
                 else
                     terminalSpeed = terminalSpeedDefault / 6;
+            }      
+            else if (wasOnWall && !IsOnWall && !isJumping && !letGoOfWall)
+            {
+                letGoOfWall = true;
+                StickToWall();
+                return;
             }
             else
             {
                 terminalSpeed = terminalSpeedDefault;
                 slideTimer = slideTimerDefault;
+                stickTimer = stickTimerDefault;
+                letGoOfWall = false;
             }
             wasOnWall = IsOnWall;
+        }
+
+        public void TerminateJump()
+        {
+            isJumping = false;
+        }
+
+        private void StickToWall()
+        {
+            if (IsOnWall && IsOnRightWall)
+                Velocity = new Vector2(speed, Velocity.Y);
+            else if (IsOnWall && !IsOnRightWall)
+                Velocity = new Vector2(-speed, Velocity.Y);
         }
     }
 }
