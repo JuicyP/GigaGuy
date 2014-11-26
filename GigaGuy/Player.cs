@@ -85,8 +85,7 @@ namespace GigaGuy
         public void Update(GameTime gameTime)
         {
             keyboardState = Keyboard.GetState();
-            HandleMovement();
-            HandleDucking();
+            HandleInput();
             HandleJumping(gameTime);
             HandleWallSliding(gameTime);
             HandlePhysics(gameTime);
@@ -117,7 +116,7 @@ namespace GigaGuy
             Position += Velocity;
         }
 
-        private void HandleMovement()
+        private void HandleInput()
         {
             isMoving = false;
 
@@ -132,6 +131,12 @@ namespace GigaGuy
                 Velocity -= Vector2.UnitX * speed;
                 isMoving = !isMoving;
             }
+
+            if (keyboardState.IsKeyDown(Keys.S) || (lastState.IsKeyDown(Keys.S) && keyboardState.IsKeyUp(Keys.S)))
+            {
+                HandleDucking();
+            }
+
         }
 
         private void HandleJumping(GameTime gameTime)
@@ -174,12 +179,8 @@ namespace GigaGuy
         private void HandleDucking()
         {
             if (keyboardState.IsKeyDown(Keys.S))
-                IsDucking = true;
-            else
-                IsDucking = false;
-
-            if (IsDucking)
             {
+                IsDucking = true;
                 Velocity = new Vector2(Velocity.X / 1.5f, Velocity.Y);
                 renderTexture = duckTexture;
                 playerHeight = 32;
@@ -191,6 +192,7 @@ namespace GigaGuy
             {
                 if (lastState.IsKeyDown(Keys.S) && keyboardState.IsKeyUp(Keys.S))
                 {
+                    IsDucking = false;
                     Position = new Vector2(Position.X, Position.Y - 32);
                     renderTexture = idleTexture;
                     playerHeight = 64;
