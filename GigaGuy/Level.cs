@@ -81,8 +81,10 @@ namespace GigaGuy
         /// </summary>
         private void HandleCollisions()
         {
-            float endOffSet = 6;
-            float sideOffSet = 6;
+            float sideOffSet;
+            float sideOffSetDefault = 6;
+            float endOffSet;
+            float endOffSetDefault = 0;
             float tileX;
             float tileY;
             int tilesWide = (int)Math.Ceiling(Player.Hitbox.Width / gridCellWidth);
@@ -92,7 +94,13 @@ namespace GigaGuy
             // Sides
             for (float i = 0; i <= tilesHigh; i += 2)
             {
-                tileY = FindGridCoordinate(Player.Position.Y + ((1 + i) / (tilesHigh * 2)) * Player.Hitbox.Height, false);
+                if ((1 + i) / (tilesHigh * 2) < 1 / 2)
+                    sideOffSet = sideOffSetDefault;
+                else if ((1 + i) / (tilesHigh * 2) == 1 / 2)
+                    sideOffSet = -sideOffSetDefault; // Compromise for 1x1 characters
+                else
+                    sideOffSet = -sideOffSetDefault;
+                tileY = FindGridCoordinate(Player.Position.Y + ((1 + i) / (tilesHigh * 2)) * Player.Hitbox.Height + sideOffSet, false);
                 for (float j = 0; j <= Player.Hitbox.Width; j += Player.Hitbox.Width)
                 {
                     tileX = FindGridCoordinate(Player.Position.X + j, true);
@@ -110,7 +118,13 @@ namespace GigaGuy
             // Ends
             for (float i = 0; i <= tilesWide; i++)
             {
-                tileX = FindGridCoordinate(Player.Position.X + (i / tilesWide) * Player.Hitbox.Width, true);
+                if ((i / tilesWide) < 1 / 2)
+                    endOffSet = endOffSetDefault;
+                else if ((i / tilesWide) == 1 / 2)
+                    endOffSet = 0;
+                else
+                    endOffSet = -endOffSetDefault;
+                tileX = FindGridCoordinate(Player.Position.X + (i / tilesWide) * Player.Hitbox.Width + endOffSet, true);
                 for (float j = 0; j <= Player.Hitbox.Height; j += Player.Hitbox.Height)
                 {
                     tileY = FindGridCoordinate(Player.Position.Y + j, false);
@@ -182,7 +196,7 @@ namespace GigaGuy
                 {
                     playerNewPosition = new Vector2(Player.Position.X, tile.Hitbox.Bottom);
                     playerNewVelocity = new Vector2(Player.Velocity.X, 0);
-                    Player.TerminateJump();
+                    Player.IsJumping = false;
                 }
             }
             Player.Position = playerNewPosition;
