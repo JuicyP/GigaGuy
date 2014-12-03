@@ -28,6 +28,24 @@
       <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\playerDuck.xnb</Output>
       <Time>2014-11-21T16:48:16.443996+02:00</Time>
     </Item>
+    <Item>
+      <Source>_45RightSlope.png</Source>
+      <Name>_45RightSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\_45RightSlope.xnb</Output>
+      <Time>2014-12-02T08:53:57.6209814+02:00</Time>
+    </Item>
+    <Item>
+      <Source>_45LeftSlope.png</Source>
+      <Name>_45LeftSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\_45LeftSlope.xnb</Output>
+      <Time>2014-12-02T09:00:18.0957434+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

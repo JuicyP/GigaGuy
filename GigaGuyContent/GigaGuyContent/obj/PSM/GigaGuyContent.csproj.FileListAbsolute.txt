@@ -5,3 +5,5 @@ C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\obj\PSM\Gig
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\player.xnb
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\tile.xnb
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\playerDuck.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\_45RightSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\_45LeftSlope.xnb

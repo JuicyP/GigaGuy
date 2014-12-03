@@ -42,7 +42,7 @@ namespace GigaGuy
         private float slideTimer;
         private const float slideTimerDefault = 0.1f;
         private float stickTimer;
-        private const float stickTimerDefault = 1f;
+        private const float stickTimerDefault = 0.5f;
         private float jumpTimer;
         private const float jumpTimerDefault = 0.4f;
 
@@ -57,8 +57,8 @@ namespace GigaGuy
         public bool IsOnGround { get; set; }
         public bool IsOnWall { get; set; }
         public bool IsOnRightWall { get; set; }
-        private bool boolX;
-        
+        private bool stuckToWall;
+
 
         public Player()
         {
@@ -156,20 +156,21 @@ namespace GigaGuy
                 {
                     IsJumping = true;
                     jumpTimer = jumpTimerDefault;
-                    Velocity = new Vector2(Velocity.X, -jumpSpeed);                  
+                    Velocity = new Vector2(Velocity.X, -jumpSpeed);
                 }
                 else if (IsOnWall)
                 {
                     IsJumping = true;
                     jumpTimer = jumpTimerDefault;
                     IsOnWall = false;
+                    stuckToWall = false;
 
                     if (IsOnRightWall)
                         Velocity = new Vector2(-jumpSpeed, -jumpSpeed);
                     else
                         Velocity = new Vector2(jumpSpeed, -jumpSpeed);
                 }
-            }                
+            }
             else if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyDown(Keys.W) && jumpTimer > 0 && IsJumping)
             {
                 if (jumpTimer < 0.1f)
@@ -216,26 +217,35 @@ namespace GigaGuy
         {
             if (IsOnWall && !IsOnGround && !IsJumping)
             {
-                if ((IsOnRightWall && keyboardState.IsKeyDown(Keys.D)) || (!IsOnRightWall && keyboardState.IsKeyDown(Keys.A)))      // TODO: Un-hardcode movement to walls
+                if ((IsOnRightWall && (Velocity.X > 0)) || (!IsOnRightWall && (Velocity.X < 0)) || !stuckToWall)      // TODO: Un-hardcode movement to walls
                     stickTimer = stickTimerDefault;
-            }
 
-            if ((stickTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds) > 0 && IsOnWall && !IsOnGround && !IsJumping)
-            {
-                if ((slideTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds) > 0)
+                if ((stickTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds) > 0)
                 {
-                    terminalSpeed = 0;
-                    Velocity = new Vector2(Velocity.X, 0);
+                    stuckToWall = true;
+                    if ((slideTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds) > 0)
+                    {
+                        terminalSpeed = 0;
+                        Velocity = new Vector2(Velocity.X, 0);
+                    }
+                    else
+                        terminalSpeed = terminalSpeedDefault / 3;
+                    if (IsOnRightWall)
+                        Position += Vector2.UnitX * 0.1f;
+                    else if (!IsOnRightWall)
+                        Position -= Vector2.UnitX * 0.1f;
                 }
-                else
-                    terminalSpeed = terminalSpeedDefault / 3;
-                if (IsOnRightWall)
-                    Position += Vector2.UnitX * 0.1f;
-                else if (!IsOnRightWall)
-                    Position -= Vector2.UnitX * 0.1f;
             }
             else
             {
+                if (stuckToWall)
+                {
+                    stuckToWall = false;
+                    if (IsOnRightWall)
+                        Position -= Vector2.UnitX * 0.1f;
+                    else if (!IsOnRightWall)
+                        Position += Vector2.UnitX * 0.1f;
+                }
                 terminalSpeed = terminalSpeedDefault;
                 slideTimer = slideTimerDefault;
                 stickTimer = 0;

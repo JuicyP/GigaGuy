@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace GigaGuy
 {
@@ -16,6 +17,7 @@ namespace GigaGuy
         public float Left { get { return X; } }
         public float Bottom { get { return Y + Height; } }
         public float Top { get { return Y; } }
+        public Vector2 Center { get { return new Vector2(X + Width / 2f, Y + Height / 2f); } }
 
         public RectangleF(float x, float y, float width, float height)
         {

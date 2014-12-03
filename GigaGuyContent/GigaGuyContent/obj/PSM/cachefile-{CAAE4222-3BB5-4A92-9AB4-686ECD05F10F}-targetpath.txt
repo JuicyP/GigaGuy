@@ -1,3 +1,5 @@
 Content\player.xnb
 Content\tile.xnb
 Content\playerDuck.xnb
+Content\_45RightSlope.xnb
+Content\_45LeftSlope.xnb
