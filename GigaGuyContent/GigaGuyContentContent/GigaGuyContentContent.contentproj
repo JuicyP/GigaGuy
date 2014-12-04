@@ -67,15 +67,79 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="_45RightSlope.png">
-      <Name>_45RightSlope</Name>
+    <Compile Include="45RightSlope.png">
+      <Name>45RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="_45LeftSlope.png">
-      <Name>_45LeftSlope</Name>
+    <Compile Include="45LeftSlope.png">
+      <Name>45LeftSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="2252LeftSlope.png">
+      <Name>2252LeftSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="2252RightSlope.png">
+      <Name>2252RightSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="2251LeftSlope.png">
+      <Name>2251LeftSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="2251RightSlope.png">
+      <Name>2251RightSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="11251LeftSlope.png">
+      <Name>11251LeftSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="11251RightSlope.png">
+      <Name>11251RightSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="11252LeftSlope.png">
+      <Name>11252LeftSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="11252RightSlope.png">
+      <Name>11252RightSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="11253LeftSlope.png">
+      <Name>11253LeftSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="11253RightSlope.png">
+      <Name>11253RightSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="11254LeftSlope.png">
+      <Name>11254LeftSlope</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="11254RightSlope.png">
+      <Name>11254RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

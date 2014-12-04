@@ -31,8 +31,24 @@ namespace GigaGuy
         {
             string[] levelInText = File.ReadAllLines(levelPath);
             Texture2D tileTexture = Content.Load<Texture2D>("tile");
-            Texture2D _45RightSlopeTexture = Content.Load<Texture2D>("_45RightSlope");
-            Texture2D _45LeftSlopeTexture = Content.Load<Texture2D>("_45LeftSlope");
+
+            Texture2D _45RSTexture = Content.Load<Texture2D>("45RightSlope");
+            Texture2D _45LSTexture = Content.Load<Texture2D>("45LeftSlope");
+
+            Texture2D _2251RSTexture = Content.Load<Texture2D>("2251RightSlope");
+            Texture2D _2252RSTexture = Content.Load<Texture2D>("2252RightSlope");
+            Texture2D _2251LSTexture = Content.Load<Texture2D>("2251LeftSlope");
+            Texture2D _2252LSTexture = Content.Load<Texture2D>("2252LeftSlope");
+
+            Texture2D _11251RSTexture = Content.Load<Texture2D>("11251RightSlope");
+            Texture2D _11252RSTexture = Content.Load<Texture2D>("11252RightSlope");
+            Texture2D _11253RSTexture = Content.Load<Texture2D>("11253RightSlope");
+            Texture2D _11254RSTexture = Content.Load<Texture2D>("11254RightSlope");
+            Texture2D _11251LSTexture = Content.Load<Texture2D>("11251LeftSlope");
+            Texture2D _11252LSTexture = Content.Load<Texture2D>("11252LeftSlope");
+            Texture2D _11253LSTexture = Content.Load<Texture2D>("11253LeftSlope");
+            Texture2D _11254LSTexture = Content.Load<Texture2D>("11254LeftSlope");
+
             string row;
 
             for (int i = 0; i < levelInText.Length; i++)
@@ -41,24 +57,42 @@ namespace GigaGuy
 
                 for (int j = 0; j < row.Length; j++)
                 {
-                    if (row[j].Equals('1'))
-                    {
-                        RectangleF hitbox = new RectangleF(j * gridCellWidth, i * gridCellHeight, gridCellWidth, gridCellHeight);
-                        Tile tile = new Tile(tileTexture, hitbox);
-                        tileMap.Add(tile);
-                    }
+                    Tile tile = null;
+                    RectangleF hitbox = new RectangleF(j * gridCellWidth, i * gridCellHeight, gridCellWidth, gridCellHeight);
+
+                    if (row[j].Equals('T'))
+                        tile = new Tile(tileTexture, hitbox);
                     else if (row[j].Equals('R'))
-                    {
-                        RectangleF hitbox = new RectangleF(j * gridCellWidth, i * gridCellHeight, gridCellWidth, gridCellHeight);
-                        Slope slope = new Slope(_45RightSlopeTexture, hitbox, SlopeType._45Right);
-                        tileMap.Add(slope);
-                    }
+                        tile = new Slope(_45RSTexture, hitbox, SlopeType._45R);
                     else if (row[j].Equals('L'))
-                    {
-                        RectangleF hitbox = new RectangleF(j * gridCellWidth, i * gridCellHeight, gridCellWidth, gridCellHeight);
-                        Slope slope = new Slope(_45LeftSlopeTexture, hitbox, SlopeType._45Left);
-                        tileMap.Add(slope);
-                    }
+                        tile = new Slope(_45LSTexture, hitbox, SlopeType._45L);
+                    else if (row[j].Equals('s'))
+                        tile = new Slope(_2251RSTexture, hitbox, SlopeType._2251R);
+                    else if (row[j].Equals('l'))
+                        tile = new Slope(_2252RSTexture, hitbox, SlopeType._2252R);
+                    else if (row[j].Equals('o'))
+                        tile = new Slope(_2252LSTexture, hitbox, SlopeType._2252L);
+                    else if (row[j].Equals('p'))
+                        tile = new Slope(_2251LSTexture, hitbox, SlopeType._2251L);
+                    else if (row[j].Equals('1'))
+                        tile = new Slope(_11251RSTexture, hitbox, SlopeType._11251R);
+                    else if (row[j].Equals('2'))
+                        tile = new Slope(_11252RSTexture, hitbox, SlopeType._11252R);
+                    else if (row[j].Equals('3'))
+                        tile = new Slope(_11253RSTexture, hitbox, SlopeType._11253R);
+                    else if (row[j].Equals('4'))
+                        tile = new Slope(_11254RSTexture, hitbox, SlopeType._11254R);
+                    else if (row[j].Equals('!'))
+                        tile = new Slope(_11254LSTexture, hitbox, SlopeType._11254L);
+                    else if (row[j].Equals('@'))
+                        tile = new Slope(_11253LSTexture, hitbox, SlopeType._11253L);
+                    else if (row[j].Equals('#'))
+                        tile = new Slope(_11252LSTexture, hitbox, SlopeType._11252L);
+                    else if (row[j].Equals('$'))
+                        tile = new Slope(_11251LSTexture, hitbox, SlopeType._11251L);
+                    else
+                        continue;
+                    tileMap.Add(tile);
                 }
             }
             Player = new Player();
@@ -101,7 +135,7 @@ namespace GigaGuy
             float tileY;
             int tilesWide = (int)Math.Ceiling(Player.Hitbox.Width / gridCellWidth);
             int tilesHigh = (int)Math.Ceiling(Player.Hitbox.Height / gridCellHeight);
-            Tile[] collidingSlopeTiles = new Tile[2];
+            Tile[] collidingSlopeTiles = new Tile[3];
             Tile[] collidingSideTiles = new Tile[tilesHigh * 2]; // The maximum amount of tiles a character of given height and width can collide with.
             Tile[] collidingEndTiles = new Tile[(1 + tilesWide) * 2];
 
@@ -111,11 +145,15 @@ namespace GigaGuy
             collidingSlopeTiles[0] = CheckForCollision(tileX, tileY);
             tileY = FindGridCoordinate(Player.Hitbox.Bottom - 2, false);
             collidingSlopeTiles[1] = CheckForCollision(tileX, tileY);
+            tileY = FindGridCoordinate(Player.Hitbox.Bottom, false);
+            collidingSlopeTiles[2] = CheckForCollision(tileX, tileY);
 
+            Player.IsOnSlope = false;
             foreach (Tile tile in collidingSlopeTiles)
             {
                 if (tile is Slope)
                 {
+                    Player.IsOnSlope = true;
                     OnSlopeCollision(tile);
                 }
             }
@@ -218,6 +256,8 @@ namespace GigaGuy
             {
                 if (Player.Hitbox.Y < tile.Hitbox.Y)
                 {
+                    if (Player.IsOnSlope)
+                        return;
                     playerNewPosition = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
                     playerNewVelocity = new Vector2(Player.Velocity.X, 0);
                     Player.IsOnGround = true;
@@ -246,17 +286,41 @@ namespace GigaGuy
 
         private void OnSlopeCollision(Tile tile)
         {
-            float slopeHeight;
+            float slopeHeight = 0;
             Slope slope = (Slope)tile;
-            if (slope.slopeType == SlopeType._45Right)
-            {
+            Player.SlopeType = slope.SlopeType;
+            // 45 Degrees
+            if (slope.SlopeType == SlopeType._45R)
                 slopeHeight = Player.Hitbox.Center.X - slope.Hitbox.X;
-            }
-            else
-            {
+            else if (slope.SlopeType == SlopeType._45L)
                 slopeHeight = slope.Hitbox.Height - (Player.Hitbox.Center.X - slope.Hitbox.X);
-            }
-            if (Player.Hitbox.Bottom > slopeHeight)
+            // 22.5 Degrees
+            else if (slope.SlopeType == SlopeType._2251R)
+                slopeHeight = (Player.Hitbox.Center.X - slope.Hitbox.X) / 2;
+            else if (slope.SlopeType == SlopeType._2252R)
+                slopeHeight = (slope.Hitbox.Height + Player.Hitbox.Center.X - slope.Hitbox.X) / 2;
+            else if (slope.SlopeType == SlopeType._2251L)
+                slopeHeight = slope.Hitbox.Height - (slope.Hitbox.Height + Player.Hitbox.Center.X - slope.Hitbox.X) / 2;
+            else if (slope.SlopeType == SlopeType._2252L)
+                slopeHeight = slope.Hitbox.Height - (Player.Hitbox.Center.X - slope.Hitbox.X) / 2;
+            // 11.25 Degrees
+            else if (slope.SlopeType == SlopeType._11251R)
+                slopeHeight = (Player.Hitbox.Center.X - slope.Hitbox.X) / 4;
+            else if (slope.SlopeType == SlopeType._11252R)
+                slopeHeight = (slope.Hitbox.Height + Player.Hitbox.Center.X - slope.Hitbox.X) / 4;
+            else if (slope.SlopeType == SlopeType._11253R)
+                slopeHeight = (Player.Hitbox.Center.X - slope.Hitbox.X) / 4 + slope.Hitbox.Height / 2;
+            else if (slope.SlopeType == SlopeType._11254R)
+                slopeHeight = (slope.Hitbox.Height + Player.Hitbox.Center.X - slope.Hitbox.X) / 4 + slope.Hitbox.Height / 2;
+            else if (slope.SlopeType == SlopeType._11251L)
+                slopeHeight = slope.Hitbox.Height - ((slope.Hitbox.Height + Player.Hitbox.Center.X - slope.Hitbox.X) / 4 + slope.Hitbox.Height / 2);
+            else if (slope.SlopeType == SlopeType._11252L)
+                slopeHeight = slope.Hitbox.Height - ((Player.Hitbox.Center.X - slope.Hitbox.X) / 4 + slope.Hitbox.Height / 2);
+            else if (slope.SlopeType == SlopeType._11253L)
+                slopeHeight = slope.Hitbox.Height - (slope.Hitbox.Height + Player.Hitbox.Center.X - slope.Hitbox.X) / 4;
+            else if (slope.SlopeType == SlopeType._11254L)
+                slopeHeight = slope.Hitbox.Height - (Player.Hitbox.Center.X - slope.Hitbox.X) / 4;
+            if (Player.Hitbox.Bottom > tile.Hitbox.Bottom - slopeHeight)
             {
                 Player.Position = new Vector2(Player.Position.X, slope.Hitbox.Bottom - slopeHeight - Player.Hitbox.Height);
                 Player.Velocity = new Vector2(Player.Velocity.X, 0);

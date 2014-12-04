@@ -58,6 +58,8 @@ namespace GigaGuy
         public bool IsOnWall { get; set; }
         public bool IsOnRightWall { get; set; }
         private bool stuckToWall;
+        public bool IsOnSlope { get; set; }
+        public SlopeType SlopeType { get; set; }
 
 
         public Player()
@@ -123,6 +125,25 @@ namespace GigaGuy
                 yClamp = MathHelper.Clamp(Velocity.Y + terminalSpeed, -yMaxSpeed, yMaxSpeed);
             }
             Velocity = new Vector2(xClamp, yClamp);
+          
+            if (IsOnSlope && !IsJumping)
+            {
+                float slopeDisplacement = 0;
+                if (SlopeType == SlopeType._45R)
+                    slopeDisplacement = -Velocity.X;
+                else if (SlopeType == SlopeType._45L)
+                    slopeDisplacement = Velocity.X;
+                else if (SlopeType == SlopeType._2251R || SlopeType == SlopeType._2252R)
+                    slopeDisplacement = -Velocity.X / 2;
+                else if (SlopeType == SlopeType._2251L || SlopeType == SlopeType._2252L)
+                    slopeDisplacement = Velocity.X / 2;
+                else if (SlopeType == SlopeType._11251R || SlopeType == SlopeType._11252R || SlopeType == SlopeType._11253R || SlopeType == SlopeType._11254R)
+                    slopeDisplacement = -Velocity.X / 4;
+                else if (SlopeType == SlopeType._11251L || SlopeType == SlopeType._11252L || SlopeType == SlopeType._11253L || SlopeType == SlopeType._11254L)
+                    slopeDisplacement = Velocity.X / 4;
+
+                Position += Vector2.UnitY * slopeDisplacement;
+            }
             Position += Velocity;
         }
 
