@@ -76,8 +76,8 @@ namespace GigaGuy
 
         public void LoadContent(ContentManager Content)
         {
-            idleTexture = Content.Load<Texture2D>("player");
-            duckTexture = Content.Load<Texture2D>("playerDuck");
+            idleTexture = Content.Load<Texture2D>("Player/player");
+            duckTexture = Content.Load<Texture2D>("Player/playerDuck");
             renderTexture = idleTexture;
         }
 
@@ -98,6 +98,13 @@ namespace GigaGuy
             spriteBatch.Draw(renderTexture, Position + offSet, Color.White);
         }
 
+        /// <summary>
+        /// Changes player position with player velocity.
+        /// If the player isn't moving, velocity approaches 0.
+        /// Clamps velocity based on max speed on the X and Y axes.
+        /// If the player is wall sliding, player movement is limited towards the wall.
+        /// If the player is on a slope, player Y position is adjusted based on X velocity and slope angle.
+        /// </summary>
         private void HandlePhysics(GameTime gameTime)
         {
             if (!isMoving)
@@ -169,6 +176,10 @@ namespace GigaGuy
             }
         }
 
+        /// <summary>
+        /// Jumping is performed by adding minute amounts of Y velocity each frame the jump button is held down.
+        /// When the jump is nearing its end, the added velocity is tapered down to make the top of the jump have an arc.
+        /// </summary>
         private void HandleJumping(GameTime gameTime)
         {
             if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyUp(Keys.W))
@@ -202,13 +213,13 @@ namespace GigaGuy
             }
             else if (((keyboardState.IsKeyUp(Keys.W) && lastState.IsKeyDown(Keys.W)) || jumpTimer < 0) && IsJumping)
             {
-                //Velocity = new Vector2(Velocity.X, 0);
-                Velocity /= 3;
+                Velocity = new Vector2(Velocity.X, Velocity.Y / 3);
                 jumpTimer = jumpTimerDefault;
                 IsJumping = false;
             }
         }
 
+        // Slows down horizontal movement and makes the player shorter.
         private void HandleDucking()
         {
             if (keyboardState.IsKeyDown(Keys.S))
@@ -218,6 +229,7 @@ namespace GigaGuy
                 renderTexture = duckTexture;
                 playerHeight = 32;
 
+                // Position needs to be adjusted.
                 if (keyboardState.IsKeyDown(Keys.S) && lastState.IsKeyUp(Keys.S))
                     Position = new Vector2(Position.X, Position.Y + 32);
             }
@@ -233,12 +245,15 @@ namespace GigaGuy
             }
         }
 
-        // Hacky as fuck
+        /// <summary>
+        /// Sticks the player to the wall, so that the player can only move away or fall down by wall jumping or waiting for the timer to expire.
+        /// The sticking is executed by constantly bumping the player into the wall to cause a collision which sets the bool IsOnWall to true.
+        /// </summary>
         private void HandleWallSliding(GameTime gameTime)
         {
             if (IsOnWall && !IsOnGround && !IsJumping)
             {
-                if ((IsOnRightWall && (Velocity.X > 0)) || (!IsOnRightWall && (Velocity.X < 0)) || !stuckToWall)      // TODO: Un-hardcode movement to walls
+                if ((IsOnRightWall && (Velocity.X > 0)) || (!IsOnRightWall && (Velocity.X < 0)) || !stuckToWall)
                     stickTimer = stickTimerDefault;
 
                 if ((stickTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds) > 0)

@@ -48,97 +48,97 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="player.png">
+    <Compile Include="Player\player.png">
       <Name>player</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="tile.png">
+    <Compile Include="Tiles\tile.png">
       <Name>tile</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="playerDuck.png">
+    <Compile Include="Player\playerDuck.png">
       <Name>playerDuck</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="45RightSlope.png">
+    <Compile Include="Tiles\Slopes\45RightSlope.png">
       <Name>45RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="45LeftSlope.png">
+    <Compile Include="Tiles\Slopes\45LeftSlope.png">
       <Name>45LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="2252LeftSlope.png">
+    <Compile Include="Tiles\Slopes\2252LeftSlope.png">
       <Name>2252LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="2252RightSlope.png">
+    <Compile Include="Tiles\Slopes\2252RightSlope.png">
       <Name>2252RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="2251LeftSlope.png">
+    <Compile Include="Tiles\Slopes\2251LeftSlope.png">
       <Name>2251LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="2251RightSlope.png">
+    <Compile Include="Tiles\Slopes\2251RightSlope.png">
       <Name>2251RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="11251LeftSlope.png">
+    <Compile Include="Tiles\Slopes\11251LeftSlope.png">
       <Name>11251LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="11251RightSlope.png">
+    <Compile Include="Tiles\Slopes\11251RightSlope.png">
       <Name>11251RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="11252LeftSlope.png">
+    <Compile Include="Tiles\Slopes\11252LeftSlope.png">
       <Name>11252LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="11252RightSlope.png">
+    <Compile Include="Tiles\Slopes\11252RightSlope.png">
       <Name>11252RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="11253LeftSlope.png">
+    <Compile Include="Tiles\Slopes\11253LeftSlope.png">
       <Name>11253LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="11253RightSlope.png">
+    <Compile Include="Tiles\Slopes\11253RightSlope.png">
       <Name>11253RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="11254LeftSlope.png">
+    <Compile Include="Tiles\Slopes\11254LeftSlope.png">
       <Name>11254LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="11254RightSlope.png">
+    <Compile Include="Tiles\Slopes\11254RightSlope.png">
       <Name>11254RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>

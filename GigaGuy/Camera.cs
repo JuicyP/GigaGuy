@@ -13,6 +13,9 @@ namespace GigaGuy
 
         public Camera() { }
 
+        /// <summary>
+        /// Returns a Vector2 used for offsetting all drawing in the Level-class, based on the position of the player.
+        /// </summary>
         public Vector2 CalculateOffSet(Player player)
         {
             if (player.IsDucking)

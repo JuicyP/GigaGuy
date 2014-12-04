@@ -2,156 +2,156 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>player.png</Source>
-      <Name>player</Name>
+      <Source>Player\player.png</Source>
+      <Name>Player\player</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\player.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Player\player.xnb</Output>
       <Time>2014-11-21T16:48:02.17818+02:00</Time>
     </Item>
     <Item>
-      <Source>tile.png</Source>
-      <Name>tile</Name>
+      <Source>Tiles\tile.png</Source>
+      <Name>Tiles\tile</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\tile.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\tile.xnb</Output>
       <Time>2014-11-17T10:39:24.0897285+02:00</Time>
     </Item>
     <Item>
-      <Source>playerDuck.png</Source>
-      <Name>playerDuck</Name>
+      <Source>Player\playerDuck.png</Source>
+      <Name>Player\playerDuck</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\playerDuck.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Player\playerDuck.xnb</Output>
       <Time>2014-11-21T16:48:16.443996+02:00</Time>
     </Item>
     <Item>
-      <Source>45RightSlope.png</Source>
-      <Name>45RightSlope</Name>
+      <Source>Tiles\Slopes\45RightSlope.png</Source>
+      <Name>Tiles\Slopes\45RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\45RightSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\45RightSlope.xnb</Output>
       <Time>2014-12-04T11:15:28.8930594+02:00</Time>
     </Item>
     <Item>
-      <Source>45LeftSlope.png</Source>
-      <Name>45LeftSlope</Name>
+      <Source>Tiles\Slopes\45LeftSlope.png</Source>
+      <Name>Tiles\Slopes\45LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\45LeftSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\45LeftSlope.xnb</Output>
       <Time>2014-12-04T11:15:13.1591595+02:00</Time>
     </Item>
     <Item>
-      <Source>2252LeftSlope.png</Source>
-      <Name>2252LeftSlope</Name>
+      <Source>Tiles\Slopes\2252LeftSlope.png</Source>
+      <Name>Tiles\Slopes\2252LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\2252LeftSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\2252LeftSlope.xnb</Output>
       <Time>2014-12-04T12:03:06.1194871+02:00</Time>
     </Item>
     <Item>
-      <Source>2252RightSlope.png</Source>
-      <Name>2252RightSlope</Name>
+      <Source>Tiles\Slopes\2252RightSlope.png</Source>
+      <Name>Tiles\Slopes\2252RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\2252RightSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\2252RightSlope.xnb</Output>
       <Time>2014-12-04T12:03:56.471367+02:00</Time>
     </Item>
     <Item>
-      <Source>2251LeftSlope.png</Source>
-      <Name>2251LeftSlope</Name>
+      <Source>Tiles\Slopes\2251LeftSlope.png</Source>
+      <Name>Tiles\Slopes\2251LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\2251LeftSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\2251LeftSlope.xnb</Output>
       <Time>2014-12-04T12:01:49.6841152+02:00</Time>
     </Item>
     <Item>
-      <Source>2251RightSlope.png</Source>
-      <Name>2251RightSlope</Name>
+      <Source>Tiles\Slopes\2251RightSlope.png</Source>
+      <Name>Tiles\Slopes\2251RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\2251RightSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\2251RightSlope.xnb</Output>
       <Time>2014-12-04T12:03:40.9594798+02:00</Time>
     </Item>
     <Item>
-      <Source>11251LeftSlope.png</Source>
-      <Name>11251LeftSlope</Name>
+      <Source>Tiles\Slopes\11251LeftSlope.png</Source>
+      <Name>Tiles\Slopes\11251LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\11251LeftSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\11251LeftSlope.xnb</Output>
       <Time>2014-12-04T12:30:45.4454015+02:00</Time>
     </Item>
     <Item>
-      <Source>11251RightSlope.png</Source>
-      <Name>11251RightSlope</Name>
+      <Source>Tiles\Slopes\11251RightSlope.png</Source>
+      <Name>Tiles\Slopes\11251RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\11251RightSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\11251RightSlope.xnb</Output>
       <Time>2014-12-04T12:30:31.1515839+02:00</Time>
     </Item>
     <Item>
-      <Source>11252LeftSlope.png</Source>
-      <Name>11252LeftSlope</Name>
+      <Source>Tiles\Slopes\11252LeftSlope.png</Source>
+      <Name>Tiles\Slopes\11252LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\11252LeftSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\11252LeftSlope.xnb</Output>
       <Time>2014-12-04T12:31:27.0857832+02:00</Time>
     </Item>
     <Item>
-      <Source>11252RightSlope.png</Source>
-      <Name>11252RightSlope</Name>
+      <Source>Tiles\Slopes\11252RightSlope.png</Source>
+      <Name>Tiles\Slopes\11252RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\11252RightSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\11252RightSlope.xnb</Output>
       <Time>2014-12-04T12:31:15.8601411+02:00</Time>
     </Item>
     <Item>
-      <Source>11253LeftSlope.png</Source>
-      <Name>11253LeftSlope</Name>
+      <Source>Tiles\Slopes\11253LeftSlope.png</Source>
+      <Name>Tiles\Slopes\11253LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\11253LeftSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\11253LeftSlope.xnb</Output>
       <Time>2014-12-04T12:32:22.6409608+02:00</Time>
     </Item>
     <Item>
-      <Source>11253RightSlope.png</Source>
-      <Name>11253RightSlope</Name>
+      <Source>Tiles\Slopes\11253RightSlope.png</Source>
+      <Name>Tiles\Slopes\11253RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\11253RightSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\11253RightSlope.xnb</Output>
       <Time>2014-12-04T12:32:01.1287303+02:00</Time>
     </Item>
     <Item>
-      <Source>11254LeftSlope.png</Source>
-      <Name>11254LeftSlope</Name>
+      <Source>Tiles\Slopes\11254LeftSlope.png</Source>
+      <Name>Tiles\Slopes\11254LeftSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\11254LeftSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\11254LeftSlope.xnb</Output>
       <Time>2014-12-04T12:33:50.3379768+02:00</Time>
     </Item>
     <Item>
-      <Source>11254RightSlope.png</Source>
-      <Name>11254RightSlope</Name>
+      <Source>Tiles\Slopes\11254RightSlope.png</Source>
+      <Name>Tiles\Slopes\11254RightSlope</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\11254RightSlope.xnb</Output>
+      <Output>C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuyContent\GigaGuyContent\bin\PSM\Content\Tiles\Slopes\11254RightSlope.xnb</Output>
       <Time>2014-12-04T12:32:43.4741524+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>

@@ -11,7 +11,7 @@ namespace GigaGuy
 {
     class Level
     {
-        public Player Player { get; private set; }
+        public Player Player { get; private set; } // Does the player have to be a property?
 
         private List<Tile> tileMap;
         private Camera camera;
@@ -27,27 +27,33 @@ namespace GigaGuy
             tileMap = new List<Tile>();
         }
 
+        /// <summary>
+        /// Loads textures to game objects and creates tilemap.
+        /// Reads a .txt file and assigns the rows as strings in an array.
+        /// The strings are then read as char-arrays and the tiles are given texture and position based on the value of the char and the position in the string array.
+        /// These tiles are then added on the tileMap-list.
+        /// </summary>
         public void LoadContent(ContentManager Content)
         {
             string[] levelInText = File.ReadAllLines(levelPath);
-            Texture2D tileTexture = Content.Load<Texture2D>("tile");
+            Texture2D tileTexture = Content.Load<Texture2D>("Tiles/tile");
 
-            Texture2D _45RSTexture = Content.Load<Texture2D>("45RightSlope");
-            Texture2D _45LSTexture = Content.Load<Texture2D>("45LeftSlope");
+            Texture2D _45RSTexture = Content.Load<Texture2D>("Tiles/Slopes/45RightSlope");
+            Texture2D _45LSTexture = Content.Load<Texture2D>("Tiles/Slopes/45LeftSlope");
 
-            Texture2D _2251RSTexture = Content.Load<Texture2D>("2251RightSlope");
-            Texture2D _2252RSTexture = Content.Load<Texture2D>("2252RightSlope");
-            Texture2D _2251LSTexture = Content.Load<Texture2D>("2251LeftSlope");
-            Texture2D _2252LSTexture = Content.Load<Texture2D>("2252LeftSlope");
+            Texture2D _2251RSTexture = Content.Load<Texture2D>("Tiles/Slopes/2251RightSlope");
+            Texture2D _2252RSTexture = Content.Load<Texture2D>("Tiles/Slopes/2252RightSlope");
+            Texture2D _2251LSTexture = Content.Load<Texture2D>("Tiles/Slopes/2251LeftSlope");
+            Texture2D _2252LSTexture = Content.Load<Texture2D>("Tiles/Slopes/2252LeftSlope");
 
-            Texture2D _11251RSTexture = Content.Load<Texture2D>("11251RightSlope");
-            Texture2D _11252RSTexture = Content.Load<Texture2D>("11252RightSlope");
-            Texture2D _11253RSTexture = Content.Load<Texture2D>("11253RightSlope");
-            Texture2D _11254RSTexture = Content.Load<Texture2D>("11254RightSlope");
-            Texture2D _11251LSTexture = Content.Load<Texture2D>("11251LeftSlope");
-            Texture2D _11252LSTexture = Content.Load<Texture2D>("11252LeftSlope");
-            Texture2D _11253LSTexture = Content.Load<Texture2D>("11253LeftSlope");
-            Texture2D _11254LSTexture = Content.Load<Texture2D>("11254LeftSlope");
+            Texture2D _11251RSTexture = Content.Load<Texture2D>("Tiles/Slopes/11251RightSlope");
+            Texture2D _11252RSTexture = Content.Load<Texture2D>("Tiles/Slopes/11252RightSlope");
+            Texture2D _11253RSTexture = Content.Load<Texture2D>("Tiles/Slopes/11253RightSlope");
+            Texture2D _11254RSTexture = Content.Load<Texture2D>("Tiles/Slopes/11254RightSlope");
+            Texture2D _11251LSTexture = Content.Load<Texture2D>("Tiles/Slopes/11251LeftSlope");
+            Texture2D _11252LSTexture = Content.Load<Texture2D>("Tiles/Slopes/11252LeftSlope");
+            Texture2D _11253LSTexture = Content.Load<Texture2D>("Tiles/Slopes/11253LeftSlope");
+            Texture2D _11254LSTexture = Content.Load<Texture2D>("Tiles/Slopes/11254LeftSlope");
 
             string row;
 
@@ -117,13 +123,13 @@ namespace GigaGuy
         }
 
         /// <summary>
-        /// NOTE: Outdated info
-        /// TODO: Rewrite
-        /// Collision in GigaGuy(WorkingTitle) works by having 8 points around the player character:
-        /// Four points on the sides and around the center of the character and one around each corner.
-        /// If any of the points enter a cell in the tilemap occupied by a tile a corresponding action depending on which point entered the cell will be performed.
-        /// The points also have a hierarchy, with the center points being checked before the corner points.
-        /// NOTE: The characters maximum terminal velocity can't exceed the height of the center points, otherwise it will break.
+        /// Collision in GigaGuy(WorkingTitle) works by having collision points around the player character:
+        /// The amount and position of these points is calculated based on the shape and size of the player collision hitbox.
+        /// There are currently three types of points: side points, end points and dedicated slope points for checking for collision with slopes.
+        /// If any of the points enter a cell in the tilemap occupied by a tile, a corresponding action depending on what kind of point entered the cell will be performed.
+        /// The points also have a hierarchy, where the collision logic is performed in order with the slopes first, sides second and ends last.
+        /// NOTE: The characters maximum terminal velocity can't exceed the height of the center points,
+        /// otherwise their logic will be performed with the would-be floor tiles, causing the player to tunnel through the tilemap.
         /// </summary>
         private void HandleCollisions()
         {
@@ -157,6 +163,10 @@ namespace GigaGuy
                     OnSlopeCollision(tile);
                 }
             }
+            // NOTE: The collision points have a slight offset, with all points being closer to the center.
+            // This allows for higher max speed on the y-axis as the player is less likely to tunnel through the tilemap.
+            // The end points also have an offset, but this is due to the collision other wise favoring the end points excessively when moving up 1 tile high "steps"
+
             // Sides
             for (float i = 0; i <= tilesHigh; i += 2)
             {
@@ -209,6 +219,7 @@ namespace GigaGuy
             CheckArrayForCollidingTiles(collidingEndTiles, false);
         }
 
+        // Checks whether the tileMap has a tile with the exact position specified. Returns tile if one is found.
         private Tile CheckForCollision(float tileX, float tileY)
         {
             foreach (Tile tile in tileMap)
@@ -224,6 +235,7 @@ namespace GigaGuy
             return null;
         }
 
+        // Gives the X and Y coordinate of the tile occupied by the collision point.
         private float FindGridCoordinate(float coordinate, bool isX)
         {
             if (isX)
@@ -232,6 +244,8 @@ namespace GigaGuy
                 return (float)Math.Floor(coordinate / gridCellHeight) * gridCellHeight;
         }
 
+        // Performs collision with tile with a logic specified with the isSide bool (true for sides, false for ends).
+        // The player is then assigned a new position and velocity.
         private void OnCollision(Tile tile, bool isSide)
         {
             Vector2 playerNewPosition;
@@ -256,6 +270,8 @@ namespace GigaGuy
             {
                 if (Player.Hitbox.Y < tile.Hitbox.Y)
                 {
+                    // If the player is standing on a slope, ignore the bottom end points as they are used for the "floor" tiles.
+                    // Otherwise, movement on slopes will appear "bumpy."
                     if (Player.IsOnSlope)
                         return;
                     playerNewPosition = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
@@ -284,6 +300,10 @@ namespace GigaGuy
             }
         }
 
+        // Separate collision logic used with slopes.
+        // The slopes height at the center of the player is calculated based on the player's position on the tile.
+        // If the player is lower than the slope height, collision logic is performed.
+        // NOTE: The player is handed the type of the slope as separate logic has to performed for changing Y position based on the X velocity on the player.
         private void OnSlopeCollision(Tile tile)
         {
             float slopeHeight = 0;
