@@ -14,6 +14,7 @@ namespace GigaGuy
         public Player Player { get; private set; } // Does the player have to be a property?
 
         private List<Tile> tileMap;
+        private Tile[,] tileMapArray;
         private Camera camera;
 
         private const int gridCellWidth = 32;
@@ -25,6 +26,8 @@ namespace GigaGuy
         {
             this.levelPath = levelPath;
             tileMap = new List<Tile>();
+            tileMapArray = new Tile[45, 76];
+
         }
 
         /// <summary>
@@ -99,6 +102,7 @@ namespace GigaGuy
                     else
                         continue;
                     tileMap.Add(tile);
+                    tileMapArray[i, j] = tile;
                 }
             }
             Player = new Player();
@@ -115,8 +119,10 @@ namespace GigaGuy
         public void Draw(SpriteBatch spriteBatch)
         {
             Vector2 offSet = camera.CalculateOffSet(Player);
-            foreach (Tile tile in tileMap)
+            foreach (Tile tile in tileMapArray)
             {
+                if (tile == null)
+                    continue;
                 tile.Draw(spriteBatch, offSet);
             }
             Player.Draw(spriteBatch, offSet);

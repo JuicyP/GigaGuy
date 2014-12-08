@@ -34,7 +34,7 @@ namespace GigaGuy
         private int playerWidth = 32;
         private int playerHeight = 64;
 
-        private float speed = 1.5f;
+        private float speed = 2.0f;
         private float jumpSpeed = 10f;
         private float terminalSpeed;
         private const float terminalSpeedDefault = 0.75f;
@@ -45,6 +45,10 @@ namespace GigaGuy
         private const float stickTimerDefault = 0.5f;
         private float jumpTimer;
         private const float jumpTimerDefault = 0.4f;
+        private float groundTimer;  // Sets IsOnGround to true if left platform recently
+        private const float groundTimerDefault = 0.05f;
+        private float jumpOnCollisionTimer;
+        private const float jumpOnCollisionTimerDefault = 0.05f;
 
         private float xMaxSpeed;
         private const float xMaxSpeedDefault = 7.5f;
@@ -58,6 +62,7 @@ namespace GigaGuy
         public bool IsOnWall { get; set; }
         public bool IsOnRightWall { get; set; }
         private bool stuckToWall;
+        private bool jumpOnCollision;
         public bool IsOnSlope { get; set; }
         public SlopeType SlopeType { get; set; }
 
@@ -70,8 +75,10 @@ namespace GigaGuy
             yMaxSpeed = yMaxSpeedDefault;
             terminalSpeed = terminalSpeedDefault;
             slideTimer = slideTimerDefault;
-            stickTimer = 0;
             jumpTimer = jumpTimerDefault;
+            stickTimer = 0;
+            groundTimer = 0;
+            jumpOnCollisionTimer = 0;
         }
 
         public void LoadContent(ContentManager Content)
@@ -84,6 +91,7 @@ namespace GigaGuy
         public void Update(GameTime gameTime)
         {
             keyboardState = Keyboard.GetState();
+            PlatformDelay(gameTime);
             HandleInput();
             HandleWallSliding(gameTime);
             HandleJumping(gameTime);
@@ -182,20 +190,26 @@ namespace GigaGuy
         /// </summary>
         private void HandleJumping(GameTime gameTime)
         {
-            if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyUp(Keys.W))
+            if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyUp(Keys.W) || jumpOnCollisionTimer > 0)
             {
+                if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyUp(Keys.W))
+                    jumpOnCollisionTimer = jumpOnCollisionTimerDefault;
+
+                jumpOnCollisionTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (IsOnGround)
                 {
                     IsJumping = true;
                     jumpTimer = jumpTimerDefault;
                     Velocity = new Vector2(Velocity.X, -jumpSpeed);
+                    jumpOnCollisionTimer = 0;
                 }
-                else if (IsOnWall)
+                else if (IsOnWall && keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyUp(Keys.W)) // Refactor everything
                 {
                     IsJumping = true;
                     jumpTimer = jumpTimerDefault;
                     IsOnWall = false;
                     stuckToWall = false;
+                    jumpOnCollisionTimer = 0;
 
                     if (IsOnRightWall)
                         Velocity = new Vector2(-jumpSpeed, -jumpSpeed);
@@ -285,6 +299,19 @@ namespace GigaGuy
                 terminalSpeed = terminalSpeedDefault;
                 slideTimer = slideTimerDefault;
                 stickTimer = 0;
+            }
+        }
+
+        private void PlatformDelay(GameTime gameTime)
+        {
+            if (IsOnGround)
+            {
+                groundTimer = groundTimerDefault;
+            }
+            else if (groundTimer > 0)
+            {
+                IsOnGround = true;
+                groundTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
         }
     }
