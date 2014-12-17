@@ -140,9 +140,9 @@ namespace GigaGuy
         private void HandleCollisions()
         {
             float sideOffSet;
-            float sideOffSetDefault = 6;
+            float sideOffSetDefault = 3;
             float endOffSet;
-            float endOffSetDefault = 6;
+            float endOffSetDefault = 7;
             float tileX;
             float tileY;
             int tilesWide = (int)Math.Ceiling(Player.Hitbox.Width / gridCellWidth);
@@ -283,6 +283,8 @@ namespace GigaGuy
                     playerNewPosition = new Vector2(Player.Position.X, tile.Hitbox.Top - Player.Hitbox.Height);
                     playerNewVelocity = new Vector2(Player.Velocity.X, 0);
                     Player.IsOnGround = true;
+                    if (Player.IsArc)
+                        Player.IsJumping = false;
                 }
                 else
                 {

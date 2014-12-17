@@ -34,8 +34,9 @@ namespace GigaGuy
         private int playerWidth = 32;
         private int playerHeight = 64;
 
-        private float speed = 2.0f;
-        private float jumpSpeed = 10f;
+        private float speed;
+        private const float speedDefault = 2.0f;
+        private float jumpSpeed = 10.5f;
         private float terminalSpeed;
         private const float terminalSpeedDefault = 0.75f;
 
@@ -57,10 +58,12 @@ namespace GigaGuy
 
         private bool isMoving;
         public bool IsJumping { get; set; }
+        private bool isWallJumping = false;
         public bool IsDucking { get; private set; }
         public bool IsOnGround { get; set; }
         public bool IsOnWall { get; set; }
         public bool IsOnRightWall { get; set; }
+        public bool IsArc { get; set; }
         private bool stuckToWall;
         private bool jumpOnCollision;
         public bool IsOnSlope { get; set; }
@@ -73,6 +76,7 @@ namespace GigaGuy
             Velocity = new Vector2(0, 0);
             xMaxSpeed = xMaxSpeedDefault;
             yMaxSpeed = yMaxSpeedDefault;
+            speed = speedDefault;
             terminalSpeed = terminalSpeedDefault;
             slideTimer = slideTimerDefault;
             jumpTimer = jumpTimerDefault;
@@ -92,6 +96,7 @@ namespace GigaGuy
         {
             keyboardState = Keyboard.GetState();
             PlatformDelay(gameTime);
+            SetSpeed();
             HandleInput();
             HandleWallSliding(gameTime);
             HandleJumping(gameTime);
@@ -140,7 +145,7 @@ namespace GigaGuy
                 yClamp = MathHelper.Clamp(Velocity.Y + terminalSpeed, -yMaxSpeed, yMaxSpeed);
             }
             Velocity = new Vector2(xClamp, yClamp);
-          
+
             if (IsOnSlope && !IsJumping)
             {
                 float slopeDisplacement = 0;
@@ -187,18 +192,20 @@ namespace GigaGuy
         /// <summary>
         /// Jumping is performed by adding minute amounts of Y velocity each frame the jump button is held down.
         /// When the jump is nearing its end, the added velocity is tapered down to make the top of the jump have an arc.
+        /// Also stores jump action when pressing jump before hitting the ground.
         /// </summary>
         private void HandleJumping(GameTime gameTime)
         {
             if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyUp(Keys.W) || jumpOnCollisionTimer > 0)
             {
                 if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyUp(Keys.W))
-                    jumpOnCollisionTimer = jumpOnCollisionTimerDefault;
+                    jumpOnCollisionTimer = jumpOnCollisionTimerDefault; // Stores jump action
 
                 jumpOnCollisionTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (IsOnGround)
                 {
                     IsJumping = true;
+                    isWallJumping = false;
                     jumpTimer = jumpTimerDefault;
                     Velocity = new Vector2(Velocity.X, -jumpSpeed);
                     jumpOnCollisionTimer = 0;
@@ -206,6 +213,7 @@ namespace GigaGuy
                 else if (IsOnWall && keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyUp(Keys.W)) // Refactor everything
                 {
                     IsJumping = true;
+                    isWallJumping = true;
                     jumpTimer = jumpTimerDefault;
                     IsOnWall = false;
                     stuckToWall = false;
@@ -219,8 +227,20 @@ namespace GigaGuy
             }
             else if (keyboardState.IsKeyDown(Keys.W) && lastState.IsKeyDown(Keys.W) && jumpTimer > 0 && IsJumping)
             {
+                if (jumpTimer > 0.375f && isWallJumping)
+                {
+
+                    if (IsOnRightWall)
+                        Velocity += Vector2.UnitX * -jumpSpeed;
+                    else
+                        Velocity += Vector2.UnitX * jumpSpeed;
+                }
+
                 if (jumpTimer < 0.1f)
+                {
+                    IsArc = true;
                     Velocity = new Vector2(Velocity.X, -jumpSpeed / 2);
+                }
                 else
                     Velocity = new Vector2(Velocity.X, -jumpSpeed);
                 jumpTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -231,6 +251,8 @@ namespace GigaGuy
                 jumpTimer = jumpTimerDefault;
                 IsJumping = false;
             }
+            else
+                IsArc = false;
         }
 
         // Slows down horizontal movement and makes the player shorter.
@@ -282,7 +304,7 @@ namespace GigaGuy
                         terminalSpeed = terminalSpeedDefault / 3;
                     if (IsOnRightWall)
                         Position += Vector2.UnitX * 0.1f;
-                    else if (!IsOnRightWall)
+                    else
                         Position -= Vector2.UnitX * 0.1f;
                 }
             }
@@ -302,16 +324,34 @@ namespace GigaGuy
             }
         }
 
+        // Sets IsOnGround to true for a few milliseconds after leaving a platform.
         private void PlatformDelay(GameTime gameTime)
         {
             if (IsOnGround)
             {
                 groundTimer = groundTimerDefault;
             }
+            else if (IsJumping)
+            {
+                IsOnGround = false;
+                groundTimer = 0;
+            }
             else if (groundTimer > 0)
             {
                 IsOnGround = true;
                 groundTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
+        }
+
+        private void SetSpeed()
+        {
+            if (IsOnGround)
+            {
+                speed = speedDefault;
+            }
+            else
+            {
+                speed = speedDefault / 1.5f;
             }
         }
     }
