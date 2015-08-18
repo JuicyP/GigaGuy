@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Player/player.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Player/playerDuck.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/11251LeftSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/11251RightSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/11252LeftSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/11252RightSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/11253LeftSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/11253RightSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/11254LeftSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/11254RightSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/2251LeftSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/2251RightSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/2252LeftSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/2252RightSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/45LeftSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/Slopes/45RightSlope.png</File>
+    <File>C:/Users/JuicyP/Programming/C#/GigaGuy/GigaGuy/Content/Tiles/tile.png</File>
+  </SourceFiles>
+</SourceFileCollection>

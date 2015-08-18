@@ -65,7 +65,6 @@ namespace GigaGuy
         public bool IsOnRightWall { get; set; }
         public bool IsArc { get; set; }
         private bool stuckToWall;
-        private bool jumpOnCollision;
         public bool IsOnSlope { get; set; }
         public SlopeType SlopeType { get; set; }
 

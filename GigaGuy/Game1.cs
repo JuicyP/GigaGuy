@@ -1,18 +1,11 @@
-﻿#region Using Statements
-using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Storage;
-using Microsoft.Xna.Framework.GamerServices;
-#endregion
 
 namespace GigaGuy
 {
     /// <summary>
-    /// This is the main type for your game
+    /// This is the main type for your game.
     /// </summary>
     public class Game1 : Game
     {
@@ -22,7 +15,6 @@ namespace GigaGuy
         private Level level;
 
         public Game1()
-            : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -55,12 +47,11 @@ namespace GigaGuy
             // TODO: use this.Content to load your game content here
             level = new Level("Level.txt");
             level.LoadContent(Content);
-            
         }
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
+        /// game-specific content.
         /// </summary>
         protected override void UnloadContent()
         {
@@ -92,7 +83,6 @@ namespace GigaGuy
             GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
-
             spriteBatch.Begin();
 
             level.Draw(spriteBatch);

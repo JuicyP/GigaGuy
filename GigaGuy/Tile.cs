@@ -12,6 +12,7 @@ namespace GigaGuy
     {
         public Texture2D Texture { get; protected set; }
         public RectangleF Hitbox { get; protected set; }
+
         public Tile(Texture2D texture, RectangleF hitbox)
         {
             Texture = texture;

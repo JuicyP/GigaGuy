@@ -13,8 +13,7 @@ namespace GigaGuy
     {
         public Player Player { get; private set; } // Does the player have to be a property?
 
-        private List<Tile> tileMap;
-        private Tile[,] tileMapArray;
+        private Tile[,] tileMap;
         private Camera camera;
 
         private const int gridCellWidth = 32;
@@ -25,8 +24,7 @@ namespace GigaGuy
         public Level(string levelPath)
         {
             this.levelPath = levelPath;
-            tileMap = new List<Tile>();
-            tileMapArray = new Tile[45, 76];
+            tileMap = new Tile[100, 100];
 
         }
 
@@ -101,8 +99,7 @@ namespace GigaGuy
                         tile = new Slope(_11251LSTexture, hitbox, SlopeType._11251L);
                     else
                         continue;
-                    tileMap.Add(tile);
-                    tileMapArray[i, j] = tile;
+                    tileMap[i, j] = tile;
                 }
             }
             Player = new Player();
@@ -119,7 +116,7 @@ namespace GigaGuy
         public void Draw(SpriteBatch spriteBatch)
         {
             Vector2 offSet = camera.CalculateOffSet(Player);
-            foreach (Tile tile in tileMapArray)
+            foreach (Tile tile in tileMap)
             {
                 if (tile == null)
                     continue;
@@ -143,8 +140,8 @@ namespace GigaGuy
             float sideOffSetDefault = 3;
             float endOffSet;
             float endOffSetDefault = 7;
-            float tileX;
-            float tileY;
+            int tileColumn;
+            int tileRow;
             int tilesWide = (int)Math.Ceiling(Player.Hitbox.Width / gridCellWidth);
             int tilesHigh = (int)Math.Ceiling(Player.Hitbox.Height / gridCellHeight);
             Tile[] collidingSlopeTiles = new Tile[3];
@@ -152,26 +149,28 @@ namespace GigaGuy
             Tile[] collidingEndTiles = new Tile[(1 + tilesWide) * 2];
 
             // Slopes
-            tileX = FindGridCoordinate(Player.Hitbox.Center.X, true);
-            tileY = FindGridCoordinate(Player.Hitbox.Center.Y, false);
-            collidingSlopeTiles[0] = CheckForCollision(tileX, tileY);
-            tileY = FindGridCoordinate(Player.Hitbox.Bottom - 2, false);
-            collidingSlopeTiles[1] = CheckForCollision(tileX, tileY);
-            tileY = FindGridCoordinate(Player.Hitbox.Bottom, false);
-            collidingSlopeTiles[2] = CheckForCollision(tileX, tileY);
+            tileColumn = FindTileIndex(Player.Hitbox.Center.X, true);
+            tileRow = FindTileIndex(Player.Hitbox.Center.Y, false);
+            collidingSlopeTiles[0] = CheckForCollision(tileRow, tileColumn);
+            tileRow = FindTileIndex(Player.Hitbox.Bottom - 2, false);
+            collidingSlopeTiles[1] = CheckForCollision(tileRow, tileColumn);
+            tileRow = FindTileIndex(Player.Hitbox.Bottom, false);
+            collidingSlopeTiles[2] = CheckForCollision(tileRow, tileColumn);
 
             Player.IsOnSlope = false;
+
             foreach (Tile tile in collidingSlopeTiles)
             {
-                if (tile is Slope)
+                if (tile != null && tile is Slope)
                 {
                     Player.IsOnSlope = true;
                     OnSlopeCollision(tile);
                 }
             }
+
             // NOTE: The collision points have a slight offset, with all points being closer to the center.
             // This allows for higher max speed on the y-axis as the player is less likely to tunnel through the tilemap.
-            // The end points also have an offset, but this is due to the collision other wise favoring the end points excessively when moving up 1 tile high "steps"
+            // The end points also have an offset, but this is due to the collision otherwise favoring the end points excessively when moving up 1 tile high "steps"
 
             // Sides
             for (float i = 0; i <= tilesHigh; i += 2)
@@ -182,15 +181,15 @@ namespace GigaGuy
                     sideOffSet = -sideOffSetDefault;
                 else
                     sideOffSet = -sideOffSetDefault; // Compromise for 1x1 characters
-                tileY = FindGridCoordinate(Player.Position.Y + ((1 + i) / (tilesHigh * 2)) * Player.Hitbox.Height + sideOffSet, false);
+                tileRow = FindTileIndex(Player.Position.Y + ((1 + i) / (tilesHigh * 2)) * Player.Hitbox.Height + sideOffSet, false);
                 for (float j = 0; j <= 1; j++)
                 {
-                    tileX = FindGridCoordinate(Player.Position.X + j * Player.Hitbox.Width, true);
+                    tileColumn = FindTileIndex(Player.Position.X + j * Player.Hitbox.Width, true);
                     for (int k = 0; k < collidingSideTiles.Length; k++) // Maybe make a method for this
                     {
                         if (collidingSideTiles[k] == null)
                         {
-                            collidingSideTiles[k] = CheckForCollision(tileX, tileY);
+                            collidingSideTiles[k] = CheckForCollision(tileRow, tileColumn);
                             break;
                         }
                     }
@@ -208,15 +207,15 @@ namespace GigaGuy
                 else
                     endOffSet = 0;
 
-                tileX = FindGridCoordinate(Player.Position.X + endOffSet + (i / tilesWide) * Player.Hitbox.Width, true);
+                tileColumn = FindTileIndex(Player.Position.X + endOffSet + (i / tilesWide) * Player.Hitbox.Width, true);
                 for (float j = 0; j <= 1; j++)
                 {
-                    tileY = FindGridCoordinate(Player.Position.Y + j * Player.Hitbox.Height, false);
+                    tileRow = FindTileIndex(Player.Position.Y + j * Player.Hitbox.Height, false);
                     for (int k = 0; k < collidingEndTiles.Length; k++)
                     {
                         if (collidingEndTiles[k] == null)
                         {
-                            collidingEndTiles[k] = CheckForCollision(tileX, tileY);
+                            collidingEndTiles[k] = CheckForCollision(tileRow, tileColumn);
                             break;
                         }
                     }
@@ -226,28 +225,22 @@ namespace GigaGuy
         }
 
         // Checks whether the tileMap has a tile with the exact position specified. Returns tile if one is found.
-        private Tile CheckForCollision(float tileX, float tileY)
+        private Tile CheckForCollision(int tileRow, int tileColumn)
         {
-            foreach (Tile tile in tileMap)
+            if (tileMap[tileRow, tileColumn] != null && tileMap[tileRow, tileColumn].Hitbox.Intersects(Player.Hitbox))
             {
-                if (tile.Hitbox.X == tileX && tile.Hitbox.Y == tileY)
-                {
-                    if (tile.Hitbox.Intersects(Player.Hitbox))
-                    {
-                        return tile;
-                    }
-                }
+                return tileMap[tileRow, tileColumn];
             }
             return null;
         }
 
         // Gives the X and Y coordinate of the tile occupied by the collision point.
-        private float FindGridCoordinate(float coordinate, bool isX)
+        private int FindTileIndex(float coordinate, bool isX)
         {
             if (isX)
-                return (float)Math.Floor(coordinate / gridCellWidth) * gridCellWidth;
+                return (int)coordinate / gridCellWidth;
             else
-                return (float)Math.Floor(coordinate / gridCellHeight) * gridCellHeight;
+                return (int)coordinate / gridCellHeight;
         }
 
         // Performs collision with tile with a logic specified with the isSide bool (true for sides, false for ends).

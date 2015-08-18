@@ -1,6 +1,66 @@
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\GigaGuy.exe
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\GigaGuy.pdb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\MonoGame.Framework.dll
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.dll
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.XAudio2.dll
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.Direct3D11.dll
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.DXGI.dll
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.Direct2D1.dll
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.XInput.dll
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.RawInput.dll
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.Direct3D9.dll
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\MonoGame.Framework.xml
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.xml
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.XAudio2.xml
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.Direct3D11.xml
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.DXGI.xml
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.Direct2D1.xml
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.XInput.xml
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.RawInput.xml
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.Direct3D9.xml
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\obj\x86\Debug\GigaGuy.csprojResolveAssemblyReference.cache
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\obj\x86\Debug\GigaGuy.exe
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\obj\x86\Debug\GigaGuy.pdb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Player\player.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Player\playerDuck.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11251LeftSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11251RightSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11252LeftSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11252RightSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11253LeftSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11253RightSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11254LeftSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11254RightSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\2251LeftSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\2251RightSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\2252LeftSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\2252RightSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\45LeftSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\45RightSlope.xnb
+c:\users\juicyp\documents\visual studio 2013\Projects\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\tile.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\obj\x86\Debug\GigaGuy.exe
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\obj\x86\Debug\GigaGuy.pdb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Player\player.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Player\playerDuck.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11251LeftSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11251RightSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11252LeftSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11252RightSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11253LeftSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11253RightSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11254LeftSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11254RightSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\2251LeftSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\2251RightSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\2252LeftSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\2252RightSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\45LeftSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\45RightSlope.xnb
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\tile.xnb
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\GigaGuy.exe
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\GigaGuy.pdb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\IgnoreMe.dll
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\MonoGame.Framework.dll
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.MediaFoundation.dll
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.dll
@@ -8,10 +68,10 @@ C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.XAudio2
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.Direct3D11.dll
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.DXGI.dll
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.Direct2D1.dll
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Lidgren.Network.dll
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.XInput.dll
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.RawInput.dll
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.Direct3D9.dll
+C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\MonoGame.Framework.xml
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.MediaFoundation.xml
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.xml
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.XAudio2.xml
@@ -22,22 +82,3 @@ C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.XInput.
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.RawInput.xml
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\SharpDX.Direct3D9.xml
 C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\obj\x86\Debug\GigaGuy.csprojResolveAssemblyReference.cache
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\obj\x86\Debug\GigaGuy.exe
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\obj\x86\Debug\GigaGuy.pdb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Player\player.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\tile.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Player\playerDuck.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\45RightSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\45LeftSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\2252LeftSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\2252RightSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\2251LeftSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\2251RightSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11251LeftSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11251RightSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11252LeftSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11252RightSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11253LeftSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11253RightSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11254LeftSlope.xnb
-C:\Users\JuicyP\Programming\C#\GigaGuy\GigaGuy\bin\Windows\Debug\Content\Tiles\Slopes\11254RightSlope.xnb
